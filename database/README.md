@@ -7,15 +7,19 @@ Estrutura do banco de dados:
 ```mermaid
 erDiagram
     Usuario {
-        int Id PK
+        int ID_usuario PK
         string Name
         string Email
         string Senha
     }
     Sentimento {
-        int Id PK
+        int ID_sentimento PK
         string Sentimento
-        int id_usuario FK
+    }
+
+    Sentimento_usuario{
+        int idUsuario
+        int idSentimento
     }
 
     Sugestao {
@@ -24,6 +28,7 @@ erDiagram
         int id_usuario FK
     }
 
-    Usuario ||..o{ Sentimento : "Consulta"
+    Usuario ||..o{ Sentimento_usuario : "Consulta"
+    Sentimento ||..o{ Sentimento_usuario : "Consulta"
     Usuario ||--o{ Sugestao : "Da"
 ```
