@@ -1,5 +1,7 @@
 # Banco de dados
 
+Tecnologia: `postgres`
+
 O banco de dados escolhido foi o [postgres](https://www.postgresql.org/)
 
 Estrutura do banco de dados:

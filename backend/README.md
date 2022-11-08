@@ -8,7 +8,7 @@ Frameworks: `FastAPI`, `SQLalchemy`, `unittest`
 
 ### Descrição
 
-A API do backend vai ficar na porta `8000` no computador host.
+A API do backend vai ficar aberta na porta `8000` no computador host.
 
 Para ver a documentação da API basta acessar esse [link](localhost:8000/docs)
 
