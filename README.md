@@ -1,11 +1,10 @@
 # GetBy
 
-O trabalho foi separado em 4 pastas:
+O trabalho foi separado em 3 pastas:
 
 - [front-end](./frontend)
 - [back-end](./backend)
 - [database](./database)
-- [docker](./docker)
 
 ## Requirements
 
