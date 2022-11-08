@@ -36,6 +36,11 @@ services:
     restart: always
     cap_drop: ["ALL"]
 
+    environment:
+      - POSTGRES_DB_FILE=${POSTGRES_DB_FILE:?err}
+      - POSTGRES_USER_FILE=${POSTGRES_USER_FILE:?err}
+      - POSTGRES_PASSWORD_FILE=${POSTGRES_PASSWORD_FILE:?err}
+
     networks: ["database"]
     ports: ["8000:8000/tcp"]
 
@@ -45,6 +50,17 @@ services:
     #depends_on:
     #  database:
     #    condition: service_healthy
+
+    secrets:
+      - source: db
+        target: postgres_db
+        mode: 0440
+      - source: user
+        target: postgres_user
+        mode: 0440
+      - source: passwd
+        target: postgres_passwd
+        mode: 0440
 
   database:
     hostname: database
@@ -94,7 +110,6 @@ services:
 
     volumes:
       - postgres_db:/var/lib/postgresql/data:rw
-      - postgres_log:/var/log/postgresql:rw
 
     read_only: true
     tmpfs: ["/var/run/postgresql"]
@@ -111,7 +126,6 @@ networks:
 
 volumes:
   postgres_db:
-  postgres_log:
 
 secrets:
   db:
