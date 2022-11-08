@@ -1,6 +1,6 @@
 .PHONY: 'start stop build clean setup'
 
-start:
+start: build
 	@echo 'Starting containers...'
 	@COMPOSE_PROJECT_NAME=getby docker-compose up
 
@@ -19,6 +19,4 @@ clean:
 	@docker image rm getby_database:1.0 2>/dev/null || echo 'Error while removing getby-database image'
 	@docker image rm getby_backend:1.0 2>/dev/null || echo 'Error while removing getby-backend image'
 	@docker volume rm getby_postgres_db 2>/dev/null || echo 'Error while removing getby-database-db volume'
-	@docker volume rm getby_postgres_conf 2>/dev/null || echo 'Error while removing getby-database-config volume'
-	@docker network rm getby_backend 2>/dev/null || echo 'Error while removing getby-backend network'
 	@docker network rm getby_database 2>/dev/null || echo 'Error while removing getby-database network'
