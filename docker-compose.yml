@@ -1,25 +1,23 @@
 version: '3.8'
 services:
+#frontend: hostname: frontend
+  #  container_name: getby_frontend
+  #  image: getby_frontend:1.0
+  #  build:
+  #    context: frontend
+  #    dockerfile: frontend.Dockerfile
+  #  stop_signal: SIGINT
 
-  frontend:
-    hostname: frontend
-    container_name: getby_frontend
-    image: getby_frontend:1.0
-    build:
-      context: .
-      dockerfile: docker/frontend.Dockerfile
-    stop_signal: SIGINT
-
-    networks: ["backend"]
-    #ports: ["5432"]
+  #  networks: ["backend"]
+  #  ports: ["5432"]
 
   backend:
     hostname: backend
     container_name: getby_backend
     image: getby_backend:1.0
     build:
-      context: .
-      dockerfile: docker/backend.Dockerfile
+      context: backend
+      dockerfile: backend.Dockerfile
     stop_signal: SIGINT
 
     #deploy:
@@ -38,23 +36,23 @@ services:
     restart: always
     cap_drop: ["ALL"]
 
-    networks: ["database", "backend"]
-    expose: ["8080:8080/tcp"]
+    networks: ["database"]
+    ports: ["8000:8000/tcp"]
 
     #read_only: true
     #tmpfs: ["/tmp"]
 
-    depends_on:
-      database:
-        condition: service_healthy
+    #depends_on:
+    #  database:
+    #    condition: service_healthy
 
   database:
     hostname: database
     container_name: getby_database
     image: getby_database:1.0
     build:
-      context: docker
-      dockerfile: Dockerfile.postgres
+      context: ./database
+      dockerfile: postgres.Dockerfile
     stop_signal: SIGINT
 
     deploy:
@@ -81,13 +79,13 @@ services:
       - LANG="pt_BR.UTF-8"
 
     secrets:
-      - source: postgres_db
+      - source: db
         target: postgres_db
         mode: 0440
-      - source: postgres_user
+      - source: user
         target: postgres_user
         mode: 0440
-      - source: postgres_passwd
+      - source: passwd
         target: postgres_passwd
         mode: 0440
 
@@ -101,15 +99,13 @@ services:
     read_only: true
     tmpfs: ["/var/run/postgresql"]
 
-    healthcheck:
-       test: ["CMD-SHELL", "pg_isready --dbname=$$(cat ${POSTGRES_DB_FILE:?err}) --username=$$(cat ${POSTGRES_USER_FILE:?err})"]
-       interval: 5s
-       timeout: 5s
-       retries: 5
+      #healthcheck:
+      #   test: ["CMD-SHELL", "pg_isready --dbname=$$(cat ${POSTGRES_DB_FILE:?err}) --username=$$(cat ${POSTGRES_USER_FILE:?err})"]
+      #   interval: 5s
+      #   timeout: 5s
+      #   retries: 5
 
 networks:
-  backend:
-    driver: bridge
   database:
     driver: bridge
 
@@ -119,8 +115,8 @@ volumes:
 
 secrets:
   db:
-    file: ./docker/postgres-db.txt
+    file: ./database/postgres-db.txt
   user:
-    file: ./docker/postgres-user.txt
+    file: ./database/postgres-user.txt
   passwd:
-    file: ./docker/postgres-passwd.txt
+    file: ./database/postgres-passwd.txt

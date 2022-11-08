@@ -1,3 +1,5 @@
 # Back end
 
-Tecnologias: Decidir
+Tecnologias: Python
+
+Framework: FastAPI, unittest

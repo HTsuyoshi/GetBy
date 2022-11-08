@@ -1,5 +1,5 @@
 create table usuario
-( 
+(
 	ID_usuario serial primary key,
 	nome varchar(50),
 	email varchar(50),
