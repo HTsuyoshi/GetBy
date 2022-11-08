@@ -19,12 +19,11 @@ class Sentimento(Base):
 
 class Sentimento_usuario(Base):
     __tablename__ = 'sentimento_usuario'
-    id_sentimento_usuario = Column(Integer, primary_key=True, index=True)
-    #id_usuario = relationship('usuario')
-    #id_uentimento = relationship('sentimento')
+    id_usuario = Column(Integer, ForeignKey('usuario.id_usuario'), primary_key=True)
+    id_sentimento = Column(Integer, ForeignKey('sentimento.id_sentimento'), primary_key=True)
 
 class Sugestao(Base):
     __tablename__ = 'sugestao'
     id_sugestao = Column(Integer, primary_key=True, index=True)
-    #id_usuario = relationship('usuario')
+    id_usuario = Column(Integer, ForeignKey('usuario.id_usuario'))
     sugestao = Column(String)

@@ -54,14 +54,32 @@ async def get_sentimento():
     sentimentos = db.session.query(Sentimento).all()
     return sentimentos
 
-#@app.post('/author/', response_model=SchemaAuthor)
-#async def author(author:SchemaAuthor):
-#    db_author = ModelAuthor(name=author.name, age=author.age)
-#    db.session.add(db_author)
-#    db.session.commit()
-#    return db_author
+@getby.post('/sentimento_usuario/', response_model=Schema_sentimento_usuario)
+async def add_sentimento_usuario(sentimento_usuario: Schema_sentimento_usuario):
+    novo_sentimento_usuario = Sentimento_usuario(id_usuario=sentimento_usuario.id_usuario, id_sentimento=sentimento_usuario.id_sentimento)
+    db.session.add(novo_sentimento_usuario)
+    db.session.commit()
+    return novo_sentimento_usuario
 
-#@app.get('/author/')
-#async def author():
-#    author = db.session.query(ModelAuthor).all()
-#    return author
+@getby.get('/sentimento_usuario/sentimento/{number}')
+async def get_sentimento_usuario_sentimento(number: int):
+    sentimentos_usuarios = db.session.query(Sentimento_usuario).filter(Sentimento_usuario.id_sentimento == number).all()
+    return sentimentos_usuarios
+
+@getby.get('/sentimento_usuario/usuario/{number}')
+async def get_sentimento_usuario_usuario(number: int):
+    sentimentos_usuarios = db.session.query(Sentimento_usuario).filter(Sentimento_usuario.id_usuario == number).all()
+    return sentimentos_usuarios
+
+@getby.post('/sugestao/', response_model=Schema_sugestao)
+async def add_sugestao(sugestao: Schema_sugestao):
+    nova_sugestao = Sugestao(id_usuario=sugestao.id_usuario, sugestao=sugestao.sugestao)
+    db.session.add(nova_sugestao)
+    db.session.commit()
+    return nova_sugestao
+
+@getby.get('/sugestao/')
+async def get_sugestao():
+    sugestoes = db.session.query(Sugestao).all()
+    return sugestoes
+
