@@ -10,7 +10,7 @@ stop:
 
 build:
 	@echo 'Building the docker image...'
-	@COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose build --no-cache
+	@COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose build
 
 clean:
 	@echo 'Removing the docker images...'

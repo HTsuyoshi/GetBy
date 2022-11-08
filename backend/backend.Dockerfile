@@ -7,7 +7,10 @@ WORKDIR /usr/src/getby
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
+RUN useradd getby
+USER getby
+
 COPY . .
 
-CMD [ "--port", "8000", "--reload" ]
-ENTRYPOINT [ "uvicorn", "main:getby" ]
+CMD [ "main:getby" ]
+ENTRYPOINT [ "uvicorn" ]

@@ -33,16 +33,20 @@ services:
     #    max_attempts: 3
     #    window: 120s
 
+    user: "getby"
     restart: always
-    cap_drop: ["ALL"]
+    cap_drop: [ "ALL" ]
 
     environment:
       - POSTGRES_DB_FILE=${POSTGRES_DB_FILE:?err}
       - POSTGRES_USER_FILE=${POSTGRES_USER_FILE:?err}
       - POSTGRES_PASSWORD_FILE=${POSTGRES_PASSWORD_FILE:?err}
+      - UVICORN_PORT=8000
+      - UVICORN_HOST=0.0.0.0
+      - UVICORN_WORKERS=1
 
-    networks: ["database"]
-    ports: ["8000:8000/tcp"]
+    networks: [ "database" ]
+    ports: [ "8000:8000" ]
 
     #read_only: true
     #tmpfs: ["/tmp"]
@@ -86,7 +90,7 @@ services:
 
     user: "postgres"
     restart: unless-stopped
-    cap_drop: ["ALL"]
+    cap_drop: [ "ALL" ]
 
     environment:
       - POSTGRES_DB_FILE=${POSTGRES_DB_FILE:?err}
@@ -105,20 +109,20 @@ services:
         target: postgres_passwd
         mode: 0440
 
-    networks: ["database"]
-    expose: ["5432"]
+    networks: [ "database" ]
+    expose: [ "5432" ]
 
     volumes:
       - postgres_db:/var/lib/postgresql/data:rw
 
     read_only: true
-    tmpfs: ["/var/run/postgresql"]
+    tmpfs: [ "/var/run/postgresql" ]
 
-      #healthcheck:
-      #   test: ["CMD-SHELL", "pg_isready --dbname=$$(cat ${POSTGRES_DB_FILE:?err}) --username=$$(cat ${POSTGRES_USER_FILE:?err})"]
-      #   interval: 5s
-      #   timeout: 5s
-      #   retries: 5
+    healthcheck:
+       test: [ "CMD-SHELL", "pg_isready --dbname=$$(cat ${POSTGRES_DB_FILE:?err}) --username=$$(cat ${POSTGRES_USER_FILE:?err})" ]
+       interval: 5s
+       timeout: 5s
+       retries: 5
 
 networks:
   database:
