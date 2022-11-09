@@ -20,18 +20,17 @@ services:
       dockerfile: backend.Dockerfile
     stop_signal: SIGINT
 
-    #deploy:
-    #  resources:
-    #    limits:
-    #      memory: 1G
-    #      pids: 40
-    #    reservations:
-    #      memory: 500M
-    #  restart_policy:
-    #    condition: on-failure
-    #    delay: 5s
-    #    max_attempts: 3
-    #    window: 120s
+    deploy:
+      resources:
+        limits:
+          memory: 100M
+        reservations:
+          memory: 40M
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
 
     user: "getby"
     restart: always
@@ -48,12 +47,11 @@ services:
     networks: [ "database" ]
     ports: [ "8000:8000" ]
 
-    #read_only: true
-    #tmpfs: ["/tmp"]
+    read_only: true
 
-    #depends_on:
-    #  database:
-    #    condition: service_healthy
+    depends_on:
+      database:
+        condition: service_healthy
 
     secrets:
       - source: db
