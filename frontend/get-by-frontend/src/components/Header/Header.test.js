@@ -1,14 +1,14 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import TopBar from './TopBar';
+import Header from './Header';
 
-describe('<TopBar />', () => {
+describe('<Header />', () => {
   test('it should mount', () => {
-    render(<TopBar />);
+    render(<Header />);
     
-    const topBar = screen.getByTestId('TopBar');
+    const header = screen.getByTestId('Header');
 
-    expect(topBar).toBeInTheDocument();
+    expect(header).toBeInTheDocument();
   });
 });

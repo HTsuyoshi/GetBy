@@ -10,6 +10,13 @@
       "withTest": true,
       "withStory": false,
       "withLazy": false
+    },
+    "view": {
+      "path": "src/views",
+      "withStyle": true,
+      "withTest": true,
+      "withStory": false,
+      "withLazy": false
     }
   }
 }

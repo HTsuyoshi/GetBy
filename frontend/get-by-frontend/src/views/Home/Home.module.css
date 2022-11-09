@@ -5,41 +5,29 @@
     align-items: center;
     justify-content: space-around;
     flex-wrap: nowrap;
-    height: 100vh;
+    height: 80vh;
     width: 100vw;
-}
-
-.divTopBar {
-    display: flex;
-    flex-direction: row;
-    flex: 1;
-
 }
 
 .divButtons {
     display: flex;
-    flex: 1;
+    flex: 2;
     flex-direction: row;
     width: 90vw;
     justify-content: space-around;
+    align-items: center;
 }
 
 .divLogo {
     flex: 2;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .divLabelOQueQuerFazer {
-    flex: 1;
-}
-
-.divButtons {
-    flex: 1;
-}
-
-.divBottomBar {
-    width: 90vw;
-    flex: 1;
+    flex: 2;
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    align-items: center;
 }

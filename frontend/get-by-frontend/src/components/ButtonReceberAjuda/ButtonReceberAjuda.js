@@ -1,12 +1,26 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './ButtonReceberAjuda.module.css';
+import { useNavigate } from "react-router-dom";
 
-const ButtonReceberAjuda = () => (
-  <div className={styles.divReceberAjuda} data-testid="ButtonReceberAjuda">
-    <button className={styles.buttonReceberAjuda}>Receber ajuda</button>
-  </div>
-);
+
+
+
+const ButtonReceberAjuda = () => {
+  const navigate = useNavigate();
+
+
+function handleClick() {
+  navigate('/buscarAjuda');
+}
+
+  return(
+    <div className={styles.divReceberAjuda} data-testid="ButtonReceberAjuda">
+      <button className={styles.buttonReceberAjuda} onClick={handleClick}>Receber ajuda</button>
+    </div>
+    )
+};
+
+
 
 ButtonReceberAjuda.propTypes = {};
 
