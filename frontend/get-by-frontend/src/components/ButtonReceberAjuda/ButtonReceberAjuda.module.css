@@ -1,0 +1,20 @@
+.divButtonReceberAjuda {
+    background-color: white;
+}
+.buttonReceberAjuda {
+    padding: 1.5vmax;
+    width: fit-content;
+    height: 7vh;
+    border-radius: 50px;
+    filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.25));
+    border: 1px solid #483D8B;
+    background-color: white;
+    font-family: 'K2D';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 4vh;
+    color: #483D8B;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+}

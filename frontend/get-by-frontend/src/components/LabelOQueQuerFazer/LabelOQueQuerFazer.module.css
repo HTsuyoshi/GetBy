@@ -1,0 +1,11 @@
+.labelOQueQuerFazer {
+    font-family: 'K2D';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 4vh;
+    line-height: 62px;
+    display: flex;
+    align-items: center;   
+    color: #B8860B; 
+    text-shadow: 0.5px 1px 0 #B8860B; 
+}
