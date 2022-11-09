@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import styles from './ButtonReceberAjuda.module.css';
 
 const ButtonReceberAjuda = () => (
-  <div className={styles.ButtonReceberAjuda} data-testid="ButtonReceberAjuda">
-    ButtonReceberAjuda Component
+  <div className={styles.divReceberAjuda} data-testid="ButtonReceberAjuda">
+    <button className={styles.buttonReceberAjuda}>Receber ajuda</button>
   </div>
 );
 

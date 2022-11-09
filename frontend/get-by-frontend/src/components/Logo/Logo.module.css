@@ -1,1 +1,23 @@
-.Logo {}
+.divLogo {
+    display: flex;
+    width: fit-content;
+}
+.labelGet {
+    font-family: 'K2D';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 13vmin;
+    line-height: 333px;
+    align-items: center;
+    color: #483D8B;
+    padding-right: 5px;
+}
+.labelBy {
+    font-family: 'K2D';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 13vmin;
+    line-height: 333px;
+    color: #AD8B00;
+    padding-left: 5px;
+}

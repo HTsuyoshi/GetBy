@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import styles from './Logo.module.css';
 
 const Logo = () => (
-  <div className={styles.Logo} data-testid="Logo">
-    Logo Component
+  <div className={styles.divLogo} data-testid="Logo">
+    <label className={styles.labelGet}>GET</label>
+    <label className={styles.labelBy}>BY</label>
   </div>
 );
 
