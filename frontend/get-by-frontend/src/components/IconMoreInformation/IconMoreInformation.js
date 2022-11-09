@@ -1,11 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './IconMoreInformation.module.css';
+import iconeMoreInfo from '../../assets/IconeMoreInfo.svg';
 
 const IconMoreInformation = () => (
-  <div className={styles.IconMoreInformation} data-testid="IconMoreInformation">
-    IconMoreInformation Component
-  </div>
+  <img src={iconeMoreInfo} className={styles.imgIcon} alt="Ícone de Mais Informações"/>
 );
 
 IconMoreInformation.propTypes = {};
