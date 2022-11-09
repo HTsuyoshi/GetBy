@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import styles from './LabelOQueQuerFazer.module.css';
 
 const LabelOQueQuerFazer = () => (
-  <div className={styles.LabelOQueQuerFazer} data-testid="LabelOQueQuerFazer">
-    LabelOQueQuerFazer Component
-  </div>
+  <label className={styles.labelOQueQuerFazer}>O que você quer fazer?</label>
 );
 
 LabelOQueQuerFazer.propTypes = {};

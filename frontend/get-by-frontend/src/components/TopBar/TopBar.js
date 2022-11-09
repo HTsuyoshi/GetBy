@@ -4,8 +4,7 @@ import styles from './TopBar.module.css';
 import IconLogInOut from './IconLogInOut/IconLogInOut';
 
 const TopBar = () => (
-  <div className={styles.TopBar} data-testid="TopBar">
-    TopBar Component
+  <div className={styles.divTopBar} data-testid="TopBar">
     <IconLogInOut />
   </div>
 );

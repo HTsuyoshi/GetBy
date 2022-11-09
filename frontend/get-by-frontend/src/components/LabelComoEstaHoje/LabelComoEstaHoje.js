@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import styles from './LabelComoEstaHoje.module.css';
 
 const LabelComoEstaHoje = () => (
-  <div className={styles.LabelComoEstaHoje} data-testid="LabelComoEstaHoje">
-    LabelComoEstaHoje Component
-  </div>
+  <label className={styles.labelComoEstaHoje}>Como você está se sentindo hoje?</label>
 );
 
 LabelComoEstaHoje.propTypes = {};
