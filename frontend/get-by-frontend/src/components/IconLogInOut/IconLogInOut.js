@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './IconLogInOut.module.css';
 
 const IconLogInOut = () => (  
-  <img className={styles.imgIcon} src='../../../assets/IconLogInOut.svg' alt="Ícone de Login e Logout"/>
+  <img  src='../../assets/IconeLogInOut.svg' className={styles.imgIcon} alt="Ícone de Login e Logout"/>
   );
 
 IconLogInOut.propTypes = {};
