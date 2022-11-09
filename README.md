@@ -19,9 +19,10 @@ Para rodar a aplicação é necessário ter [docker](https://www.docker.com/).
 Para subir a aplicação rodar:
 
 ```sh
-make
+make build && make start
 
 # ou
 
+COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose build
 COMPOSE_PROJECT_NAME=getby docker-compose up
 ```
