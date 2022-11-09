@@ -16,18 +16,18 @@ Redes:
 
 Vaiáveis de ambiente:
 
-- UVICORN\_PORT=8000
-- UVICORN\_HOST=0.0.0.0
-- UVICORN\_WORKERS=1
-- POSTGRES\_DB\_FILE=${POSTGRES\_DB\_FILE:?err}
-- POSTGRES\_USER\_FILE=${POSTGRES\_USER\_FILE:?err}
-- POSTGRES\_PASSWORD\_FILE=${POSTGRES\_PASSWORD\_FILE:?err}
+- `UVICORN_PORT`=8000
+- `UVICORN_HOST`=0.0.0.0
+- `UVICORN_WORKERS`=1
+- `POSTGRES_DB_FILE`=${POSTGRES\_DB\_FILE:?err}
+- `POSTGRES_USER_FILE`=${POSTGRES\_USER\_FILE:?err}
+- `POSTGRES_PASSWORD_FILE`=${POSTGRES\_PASSWORD\_FILE:?err}
 
 Secrets:
 
-- db: database/postgres-db.txt
-- user: database/postgres-user.txt
-- senha: database/postgres-passwd.txt
+- `db`: database/postgres-db.txt
+- `user`: database/postgres-user.txt
+- `senha`: database/postgres-passwd.txt
 
 #### Database
 
@@ -43,12 +43,12 @@ Volumes:
 
 Vaiáveis de ambiente:
 
-- POSTGRES\_DB\_FILE=${POSTGRES\_DB\_FILE:?err}
-- POSTGRES\_USER\_FILE=${POSTGRES\_USER\_FILE:?err}
-- POSTGRES\_PASSWORD\_FILE=${POSTGRES\_PASSWORD\_FILE:?err}
+- `POSTGRES_DB_FILE`=${POSTGRES\_DB\_FILE:?err}
+- `POSTGRES_USER_FILE`=${POSTGRES\_USER\_FILE:?err}
+- `POSTGRES_PASSWORD_FILE`=${POSTGRES\_PASSWORD\_FILE:?err}
 
 Secrets:
 
-- db: database/postgres-db.txt
-- user: database/postgres-user.txt
-- senha: database/postgres-passwd.txt
+- `db`: database/postgres-db.txt
+- `user`: database/postgres-user.txt
+- `senha`: database/postgres-passwd.txt
