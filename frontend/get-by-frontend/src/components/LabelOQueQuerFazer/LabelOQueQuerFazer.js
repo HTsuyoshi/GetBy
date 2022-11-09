@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './LabelOQueQuerFazer.module.css';
 
 const LabelOQueQuerFazer = () => (

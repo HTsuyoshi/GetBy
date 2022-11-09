@@ -1,1 +1,45 @@
-.Home {}
+.divHome {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+    height: 100vh;
+    width: 100vw;
+}
+
+.divTopBar {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+
+}
+
+.divButtons {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    width: 90vw;
+    justify-content: space-around;
+}
+
+.divLogo {
+    flex: 2;
+}
+
+.divLabelOQueQuerFazer {
+    flex: 1;
+}
+
+.divButtons {
+    flex: 1;
+}
+
+.divBottomBar {
+    width: 90vw;
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
