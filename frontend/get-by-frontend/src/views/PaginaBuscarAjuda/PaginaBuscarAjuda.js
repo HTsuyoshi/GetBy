@@ -7,13 +7,18 @@ import IconAngry from '../../components/IconAngry/IconAngry';
 import IconSad from '../../components/IconSad/IconSad';
 
 const PaginaBuscarAjuda = () => (
-  <div className={styles.PaginaBuscarAjuda} data-testid="PaginaBuscarAjuda">
-    PaginaBuscarAjuda Component
-    <LabelEmocoes />
-    <LabelComoEstaHoje />
-    <IconHappy />
-    <IconAngry />
-    <IconSad />
+  <div className={styles.divPaginaBuscarAjuda} data-testid="PaginaBuscarAjuda">
+    <div className={styles.divLabelEmocoes}>
+      <LabelEmocoes />
+    </div>
+    <div className={styles.divLabelComoEstaHoje}>
+      <LabelComoEstaHoje />
+    </div>
+    <div className={styles.divIconesEmocoes}>
+      <IconHappy />
+      <IconAngry />
+      <IconSad />
+    </div>  
   </div>
 );
 
