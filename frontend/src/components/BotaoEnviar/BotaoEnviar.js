@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+//import React, { useState } from 'react';
+import React from 'react';
 import styles from './BotaoEnviar.module.css';
 
 const BotaoEnviar = () => {
-  const [value, setValue] = useState(null);
+  //const [value, setValue] = useState(null);
 
   function handleClick() {
     console.log("Botao Enviar Clicado")

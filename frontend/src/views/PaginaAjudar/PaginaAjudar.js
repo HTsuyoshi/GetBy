@@ -8,8 +8,6 @@ import InputDica from '../../components/InputDica/InputDica';
 import BotaoEnviar from '../../components/BotaoEnviar/BotaoEnviar';
 
 const PaginaAjudar = () => {
-  const []
-  
   return (
     <div className={styles.divPaginaAjudar} data-testid="PaginaAjudar">
       <LabelExperiencia />

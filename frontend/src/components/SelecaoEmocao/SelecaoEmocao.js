@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+//import React, {useState} from 'react';
+import React from 'react';
 import styles from './SelecaoEmocao.module.css';
 
 const SelecaoEmocao = () => {
-  
+
   return (
   <div className={styles.divSelecaoEmocao} data-testid="SelecaoEmocao">
     <select className={styles.selectSelecaoEmocao} onChange="#">
