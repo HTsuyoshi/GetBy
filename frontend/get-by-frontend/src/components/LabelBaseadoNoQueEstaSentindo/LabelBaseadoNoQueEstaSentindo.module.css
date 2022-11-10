@@ -1,1 +1,11 @@
-.LabelBaseadoNoQueEstaSentindo {}
+.labelBaseadoNoQueEstaSentindo {
+    font-family: 'K2D';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 4vh;
+    line-height: 83px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #000000;
+}

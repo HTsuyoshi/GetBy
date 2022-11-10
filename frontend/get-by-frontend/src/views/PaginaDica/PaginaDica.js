@@ -5,8 +5,7 @@ import LabelBaseadoNoQueEstaSentindo from '../../components/LabelBaseadoNoQueEst
 import DivEmocao from '../../components/DivEmocao/DivEmocao';
 
 const PaginaDica = () => (
-  <div className={styles.PaginaDica} data-testid="PaginaDica">
-    PaginaDica Component
+  <div className={styles.divPaginaDica} data-testid="PaginaDica">
     <LabelSugestao />
     <LabelBaseadoNoQueEstaSentindo />
     <DivEmocao />

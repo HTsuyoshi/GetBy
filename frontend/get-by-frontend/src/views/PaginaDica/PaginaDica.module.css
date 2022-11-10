@@ -1,1 +1,8 @@
-.PaginaDica {}
+.divPaginaDica {
+    background-color: #A8A0D9;
+    display: flex;
+    flex-direction: column;
+    height: 84vh;
+    flex: 1; 
+    align-items: center;
+}
