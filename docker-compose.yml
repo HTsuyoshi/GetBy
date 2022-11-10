@@ -13,7 +13,6 @@ services:
       resources:
         limits:
           memory: 50M
-          cpu: 0.3
         reservations:
           memory: 10M
       restart_policy:
@@ -42,7 +41,6 @@ services:
       resources:
         limits:
           memory: 100M
-          cpu: 0.3
         reservations:
           memory: 40M
       restart_policy:
@@ -97,7 +95,6 @@ services:
         limits:
           memory: 200M
           pids: 30
-          cpu: 0.3
         reservations:
           memory: 50M
       restart_policy:
