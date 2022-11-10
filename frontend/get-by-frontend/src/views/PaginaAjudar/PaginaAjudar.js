@@ -7,16 +7,20 @@ import SelecaoEmocao from '../../components/SelecaoEmocao/SelecaoEmocao';
 import InputDica from '../../components/InputDica/InputDica';
 import BotaoEnviar from '../../components/BotaoEnviar/BotaoEnviar';
 
-const PaginaAjudar = () => (
-  <div className={styles.divPaginaAjudar} data-testid="PaginaAjudar">
-    <LabelExperiencia />
-    <LabelQuandoVcEstava />
-    <SelecaoEmocao />
-    <LabelOQTeAjudou />
-    <InputDica />
-    <BotaoEnviar />
-  </div>
-);
+const PaginaAjudar = () => {
+  const []
+  
+  return (
+    <div className={styles.divPaginaAjudar} data-testid="PaginaAjudar">
+      <LabelExperiencia />
+      <LabelQuandoVcEstava />
+      <SelecaoEmocao />
+      <LabelOQTeAjudou />
+      <InputDica />
+      <BotaoEnviar />
+    </div>
+  );
+}
 
 PaginaAjudar.propTypes = {};
 
