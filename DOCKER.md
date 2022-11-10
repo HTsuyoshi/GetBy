@@ -2,6 +2,17 @@
 
 Esse arquivo dá um pequeno resumo das partes mais importantes dos contâiners do aplicativo. A aplicação se baseia em 3 contâiners:
 
+```mermaid
+graph TD
+    usuario[usuario] --> front[front_end]
+    usuario[usuario] --> getby_backend
+    subgraph backend_network
+    direction LR
+    getby_backend[getby_backend] --> getby_database[getby_database]
+    end
+    style backend_network fill:#fff,stroke:#97f,stroke-width:2px,color:#000
+```
+
 #### Frontend
 
 Imagem:

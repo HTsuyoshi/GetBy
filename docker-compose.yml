@@ -1,6 +1,5 @@
 version: '3.8'
-services:
-  frontend:
+services: frontend:
     hostname: frontend
     container_name: getby_frontend
     image: getby_frontend:1.0
@@ -13,7 +12,6 @@ services:
       resources:
         limits:
           memory: 50M
-          cpu: 0.3
         reservations:
           memory: 10M
       restart_policy:
@@ -42,7 +40,6 @@ services:
       resources:
         limits:
           memory: 100M
-          cpu: 0.3
         reservations:
           memory: 40M
       restart_policy:
@@ -97,8 +94,11 @@ services:
         limits:
           memory: 200M
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 3e7ce28 (makefile docker)
+=======
+>>>>>>> 4537ef2 (fix `docker-compose.yml` and `DOCKER.md` mermaid)
         reservations:
           memory: 50M
       restart_policy:
