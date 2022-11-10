@@ -1,1 +1,19 @@
-.SelecaoEmocao {}
+.divSelecaoEmocao {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.selectSelecaoEmocao {
+    box-sizing: border-box;
+    width: 25vw;
+    background: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    border-radius: 50px;
+    padding: 2px;
+    font-size: 2vh;
+}
+
+.option {
+    margin-left: 15px;
+}
