@@ -2,10 +2,7 @@ import React from 'react';
 import styles from './InputDica.module.css';
 
 const InputDica = () => (
-  <div className={styles.InputDica} data-testid="InputDica">
-    InputDica Component
-    <input type="text"></input>
-  </div>
+    <input className={styles.inputDica} type="text"/>
 );
 
 InputDica.propTypes = {};

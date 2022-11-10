@@ -2,4 +2,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: #816d46;
+    height: 84vh;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
 }
