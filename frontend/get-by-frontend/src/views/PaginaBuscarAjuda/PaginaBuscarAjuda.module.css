@@ -1,0 +1,22 @@
+.divPaginaBuscarAjuda {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 80vh;
+}
+
+.divLabelEmocoes {
+    flex: 2;
+}
+
+.divLabelComoEstaHoje {
+    flex: 2;
+}
+
+.divIconesEmocoes {
+    width: 80vw;
+    flex: 2;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
