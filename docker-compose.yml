@@ -12,9 +12,10 @@ services:
     deploy:
       resources:
         limits:
-          memory: 100M
+          memory: 50M
+          cpu: 0.3
         reservations:
-          memory: 40M
+          memory: 10M
       restart_policy:
         condition: on-failure
         delay: 5s
@@ -41,6 +42,7 @@ services:
       resources:
         limits:
           memory: 100M
+          cpu: 0.3
         reservations:
           memory: 40M
       restart_policy:
@@ -94,6 +96,9 @@ services:
       resources:
         limits:
           memory: 200M
+<<<<<<< HEAD
+=======
+>>>>>>> 3e7ce28 (makefile docker)
         reservations:
           memory: 50M
       restart_policy:
