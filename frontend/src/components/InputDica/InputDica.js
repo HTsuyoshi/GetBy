@@ -1,13 +1,12 @@
 import React from 'react';
 import styles from './InputDica.module.css';
 
-const InputDica = () => {
-    function handleChange() {
-        
+const InputDica = (props) => {
+    function handleChange (event) {
+        props.handleInputChange(event.target.value);
     }
-
     return (
-        <input className={styles.inputDica} type="text" onChangeText={handleChange}/>
+        <input className={styles.inputDica} type="text" onChange={handleChange}/>
     );
 }
 

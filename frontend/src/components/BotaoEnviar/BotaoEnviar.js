@@ -2,12 +2,11 @@
 import React from 'react';
 import styles from './BotaoEnviar.module.css';
 
-const BotaoEnviar = () => {
-  //const [value, setValue] = useState(null);
+const BotaoEnviar = (props) => {
 
   function handleClick() {
     console.log("Botao Enviar Clicado")
-    // TODO: Botao - submit formulario e enviar pro back
+    props.handleButtonClick();
   }
 
   return(
