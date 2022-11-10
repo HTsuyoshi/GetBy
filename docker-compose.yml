@@ -1,15 +1,32 @@
 version: '3.8'
 services:
-#frontend: hostname: frontend
-  #  container_name: getby_frontend
-  #  image: getby_frontend:1.0
-  #  build:
-  #    context: frontend
-  #    dockerfile: frontend.Dockerfile
-  #  stop_signal: SIGINT
+  frontend:
+    hostname: frontend
+    container_name: getby_frontend
+    image: getby_frontend:1.0
+    build:
+      context: frontend
+      dockerfile: frontend.Dockerfile
+    stop_signal: SIGINT
 
-  #  networks: ["backend"]
-  #  ports: ["5432"]
+    deploy:
+      resources:
+        limits:
+          memory: 100M
+        reservations:
+          memory: 40M
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+    environment:
+      - NODE_ENV=production
+      - NODE_CONFIG_LOGLEVEL=debug
+      - NPM_CONFIG_PREFIX=/home/getby/.npm-global
+
+    ports: ["80:80"]
 
   backend:
     hostname: backend
@@ -37,12 +54,12 @@ services:
     cap_drop: [ "ALL" ]
 
     environment:
-      - POSTGRES_DB_FILE=${POSTGRES_DB_FILE:?err}
-      - POSTGRES_USER_FILE=${POSTGRES_USER_FILE:?err}
-      - POSTGRES_PASSWORD_FILE=${POSTGRES_PASSWORD_FILE:?err}
       - UVICORN_PORT=8000
       - UVICORN_HOST=0.0.0.0
       - UVICORN_WORKERS=1
+      - POSTGRES_DB_FILE=${POSTGRES_DB_FILE:?err}
+      - POSTGRES_USER_FILE=${POSTGRES_USER_FILE:?err}
+      - POSTGRES_PASSWORD_FILE=${POSTGRES_PASSWORD_FILE:?err}
 
     networks: [ "database" ]
     ports: [ "8000:8000" ]
