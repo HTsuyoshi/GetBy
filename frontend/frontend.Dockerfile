@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.4
 
-FROM node:lts AS development
+FROM node:16 AS development
 
 WORKDIR /getby
 

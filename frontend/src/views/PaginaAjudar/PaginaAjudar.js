@@ -6,11 +6,12 @@ import LabelOQTeAjudou from '../../components/LabelOQTeAjudou/LabelOQTeAjudou';
 import SelecaoEmocao from '../../components/SelecaoEmocao/SelecaoEmocao';
 import InputDica from '../../components/InputDica/InputDica';
 import BotaoEnviar from '../../components/BotaoEnviar/BotaoEnviar';
-import axios from 'axios';
+import axios from 'axios'
 
 const PaginaAjudar = () => {
   const [emocao, setEmocao] = useState(null);
   const [dica, setDica] = useState(null);
+  console.log(emocao)
 
   function changeDica(dica) {
     setDica(dica);
@@ -26,10 +27,9 @@ const PaginaAjudar = () => {
   function submitDica() {
     //TODO remover prox linha
     console.log("Submit Dica");
-    const axios = require('axios');
-    const urlPostDica = '/sugestao/';
+    const urlPostDica = 'http://localhost:8000/sugestao/';
     axios.post(urlPostDica, {
-      id_usuario: 1,      
+      id_usuario: 1,
       id_sugestao: 5,
       sugestao: dica
     }).then(function (response){
