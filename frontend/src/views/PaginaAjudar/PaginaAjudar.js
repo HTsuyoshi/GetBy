@@ -31,7 +31,14 @@ const PaginaAjudar = () => {
     axios.post(urlPostDica, {
       id_usuario: 1,
       id_sugestao: 5,
-      sugestao: dica
+      sugestao: dica,
+      onProxyRes: function (proxyRes, req, res) {
+       proxyRes.headers['Allow-Cross-Origin'] = '*';
+       proxyRes.headers['Access-Control-Allow-Origin'] = 'http://localhost:80';
+       proxyRes.headers['Access-Control-Allow-Methods'] = '*';
+       proxyRes.headers['Access-Control-Allow-Credentials'] = 'true';
+       proxyRes.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization';
+    }
     }).then(function (response){
       console.log(response);
     }).catch(function (error) {

@@ -1,6 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
 from fastapi_sqlalchemy import DBSessionMiddleware, db
+from fastapi.middleware.cors import CORSMiddleware
 
 from models import Usuario, Sentimento, Sentimento_usuario, Sugestao
 from schema import Schema_usuario, Schema_sentimento, Schema_sentimento_usuario, Schema_sugestao
@@ -22,6 +23,15 @@ with open(os.environ['POSTGRES_PASSWORD_FILE'], 'r') as f:
     db_pass = f.read().strip()
 
 db_url: str =  f'postgresql://{db_user}:{db_pass}@database/{db_name}'
+
+# CORS error
+getby.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # to avoid csrftokenError
 getby.add_middleware(DBSessionMiddleware, db_url=db_url)
