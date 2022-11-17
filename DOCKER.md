@@ -17,7 +17,7 @@ graph TD
 
 #### Frontend
 
-Imagem:
+Imagem: `node:16`
 
 Vaiáveis de ambiente:
 
