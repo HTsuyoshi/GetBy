@@ -31,6 +31,7 @@ const PaginaAjudar = () => {
     axios.post(urlPostDica, {
       id_usuario: 1,
       id_sugestao: 5,
+      id_sentimento: 2,
       sugestao: dica,
       onProxyRes: function (proxyRes, req, res) {
        proxyRes.headers['Allow-Cross-Origin'] = '*';

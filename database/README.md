@@ -1,5 +1,7 @@
 # Banco de dados
 
+Responsáveis: `Gabriel`, `Guilherme`
+
 Tecnologia: `postgres`
 
 O banco de dados escolhido foi o [postgres](https://www.postgresql.org/)

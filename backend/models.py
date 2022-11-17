@@ -26,4 +26,5 @@ class Sugestao(Base):
     __tablename__ = 'sugestao'
     id_sugestao = Column(Integer, primary_key=True, index=True)
     id_usuario = Column(Integer, ForeignKey('usuario.id_usuario'))
+    id_sentimento = Column(Integer, ForeignKey('sentimento.id_sentimento'))
     sugestao = Column(String)

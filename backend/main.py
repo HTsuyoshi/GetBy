@@ -83,7 +83,7 @@ async def get_sentimento_usuario_usuario(number: int):
 
 @getby.post('/sugestao/', response_model=Schema_sugestao)
 async def add_sugestao(sugestao: Schema_sugestao):
-    nova_sugestao = Sugestao(id_usuario=sugestao.id_usuario, sugestao=sugestao.sugestao)
+    nova_sugestao = Sugestao(id_usuario=sugestao.id_usuario, id_sentimento=sugestao.id_sentimento, sugestao=sugestao.sugestao)
     db.session.add(nova_sugestao)
     db.session.commit()
     return nova_sugestao

@@ -1,5 +1,7 @@
 # Docker
 
+Responsável: `Tsu`
+
 Esse arquivo dá um pequeno resumo das partes mais importantes dos contâiners do aplicativo. A aplicação se baseia em 3 contâiners:
 
 ```mermaid
@@ -16,6 +18,12 @@ graph TD
 #### Frontend
 
 Imagem:
+
+Vaiáveis de ambiente:
+
+- `NODE_ENV`=production
+- `NODE_CONFIG_LOGLEVEL`=debug
+- `NPM_CONFIG_PREFIX`=/home/getby/.npm-global
 
 #### Backend
 
@@ -46,11 +54,11 @@ Imagem base: `postgres:14.2-alpine`
 
 Redes:
 
-- database: vai conectar o banco de dados com o backend
+- `database`: vai conectar o banco de dados com o backend
 
 Volumes:
 
-- postgres\_db: armazenar o banco de dados em um volume persistente
+- `postgres_db`: armazenar o banco de dados em um volume persistente
 
 Vaiáveis de ambiente:
 

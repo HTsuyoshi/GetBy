@@ -1,5 +1,7 @@
 # Back end
 
+Responsáveis: `Gustavo`, `Henrique`
+
 ### Especificações
 
 Tecnologias: `Python`

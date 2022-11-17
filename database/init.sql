@@ -21,8 +21,9 @@ create table sentimento_usuario
 create table sugestao
 (
 	id_sugestao serial primary key,
-	sugestao varchar(500),
-	id_usuario int
+	id_usuario int,
+	id_sentimento int,
+	sugestao varchar(500)
 );
 
 alter table sentimento_usuario add constraint FK_sentimento_usuario_id_usuario foreign key(id_usuario) references Usuario(id_usuario);
@@ -41,9 +42,9 @@ insert into sentimento_usuario (id_usuario, id_sentimento) values (1, 2);
 insert into sentimento_usuario (id_usuario, id_sentimento) values (2, 1);
 insert into sentimento_usuario (id_usuario, id_sentimento) values (1, 3);
 
-insert into sugestao (sugestao, id_usuario) values ('procure se distrair mais', 1);
-insert into sugestao (sugestao, id_usuario) values ('procure se distrair mais com peixes', 2);
-insert into sugestao (sugestao, id_usuario) values ('procure se distrair mais com cachorros', 1);
+insert into sugestao (sugestao, id_usuario) values ('procure se distrair mais', 1, 1);
+insert into sugestao (sugestao, id_usuario) values ('procure se distrair mais com peixes', 2, 2);
+insert into sugestao (sugestao, id_usuario) values ('procure se distrair mais com cachorros', 1, 2);
 
 select * from usuario;
 select * from sentimento;
