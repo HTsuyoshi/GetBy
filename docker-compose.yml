@@ -8,6 +8,8 @@ services:
       context: frontend
       dockerfile: frontend.Dockerfile
     stop_signal: SIGINT
+    networks:
+      - front
 
     deploy:
       resources:
@@ -140,6 +142,8 @@ services:
 
 networks:
   database:
+    driver: bridge
+  front:
     driver: bridge
 
 volumes:

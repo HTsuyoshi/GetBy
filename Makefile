@@ -25,3 +25,4 @@ clean:
 	@docker image rm getby_frontend:1.0 2>&- || echo 'Error while removing getby-backend image'
 	@docker volume rm getby_postgres_db 2>&- || echo 'Error while removing getby-database-db volume'
 	@docker network rm getby_database 2>&- || echo 'Error while removing getby-database network'
+	@docker network rm getby_front 2>&- || echo 'Error while removing getby-database network'
