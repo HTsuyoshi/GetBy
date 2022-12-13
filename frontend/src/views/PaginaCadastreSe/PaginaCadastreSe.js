@@ -31,21 +31,21 @@ const PaginaCadastreSe = () => {
 
   return (
     <div className={styles.divPaginaCadastreSe} data-testid="PaginaCadastreSe">
-        <LabelTituloAmarelo titulo={"Cadastre-se"}/>
-        <div className={styles.divInput}>
-            <LabelInput textoLabel={"Email"} />
-            <Input handleInputChange={changeEmail} />
-        </div>
-        <div className={styles.divInput}>
-            <LabelInput textoLabel={"Usuário"} />
-            <Input handleInputChange={changeUsuario} />
-        </div>
-        <div className={styles.divInput}>
-            <LabelInput textoLabel={"Senha"} />
-            <Input handleInputChange={changeSenha} />
-        </div>
-        <div className={styles.divButton}> 
-          <ButtonAmarelo texto={"Cadastrar"} handleButtonClick={handleButtonEnviarClicked}/>
+      <LabelTituloAmarelo titulo={"Cadastre-se"}/>
+      <div className={styles.divInput}>
+        <LabelInput textoLabel={"Email"} />
+        <Input handleInputChange={changeEmail} />
+      </div>
+      <div className={styles.divInput}>
+        <LabelInput textoLabel={"Usuário"} />
+        <Input handleInputChange={changeUsuario} />
+      </div>
+      <div className={styles.divInput}>
+        <LabelInput textoLabel={"Senha"} />
+        <Input handleInputChange={changeSenha} />
+      </div>
+      <div className={styles.divButton}> 
+        <ButtonAmarelo texto={"Cadastrar"} handleButtonClick={handleButtonEnviarClicked}/>
       </div>
     </div>
   )
