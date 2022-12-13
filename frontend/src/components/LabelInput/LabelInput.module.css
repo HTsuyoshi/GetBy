@@ -1,0 +1,15 @@
+.divLabelInput {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.labelInput {
+    font-family: 'K2D';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 6vmin;
+    line-height: 62px;
+    display: flex;
+    align-items: center;
+    color: #483D8B;
+}

@@ -1,0 +1,16 @@
+.divLabelTituloAmarelo {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    justify-content: center;
+}
+.labelTituloAmarelo {
+    font-family: 'K2D';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 8vmin;
+    line-height: 125px;
+    display: flex;
+    align-items: center;
+    color: #AD8B00;
+}
