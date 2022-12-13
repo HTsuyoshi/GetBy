@@ -13,6 +13,8 @@ import PaginaLogin from './views/PaginaLogin/PaginaLogin.js';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import PaginaEsqueciSenha from  './views/PaginaEsqueciSenha/PaginaEsqueciSenha.js';
+import PaginaCadastreSe from  './views/PaginaCadastreSe/PaginaCadastreSe.js';
+
 function App() {
   return (
     <div className="App">
@@ -26,6 +28,7 @@ function App() {
             <Route path="/paginaDica" element={<PaginaDica />} />
             <Route path="/login" element={<PaginaLogin />} />
             <Route path="/esqueciSenha" element={<PaginaEsqueciSenha />} />
+            <Route path="/cadastreSe" element={<PaginaCadastreSe />} />
           </ Routes>
         </div>
         <Footer></Footer>

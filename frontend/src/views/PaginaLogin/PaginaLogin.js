@@ -11,10 +11,17 @@ import { useNavigate } from "react-router-dom";
 const PaginaLogin = () => {
   const [usuario, setUsuario] = useState(null);
   console.log(usuario);
+  const [senha, setSenha] = useState(null);
+  console.log(senha);
+
   const navigate = useNavigate();
 
   function changeUsuario(userInput) {
     setUsuario(userInput);
+  }
+
+  function changeSenha(passwordInput) {
+    setSenha(passwordInput);
   }
 
   function handleButtonEnviarClicked() {
@@ -30,11 +37,13 @@ const PaginaLogin = () => {
       </div>
       <div className={styles.divInput}>
         <LabelInput textoLabel={"Senha"} />
-        <Input handleInputChange={changeUsuario} />
+        <Input handleInputChange={changeSenha} />
       </div>
       <div className={styles.divLabelsRoxaEAmarela}>
         <LabelTextoRoxo texto={"Ainda não tem uma conta?"} />
-        <LabelTextoAmarelo texto={"Clique aqui"} />
+        <a href={"/cadastreSe"} className={styles.aEsqueceuSenha}>
+          <LabelTextoAmarelo texto={"Clique aqui"} />
+        </a>
       </div>
       <div className={styles.divLabelsRoxaEAmarela}>
         <LabelTextoRoxo texto={"Esqueceu sua senha?"} />
