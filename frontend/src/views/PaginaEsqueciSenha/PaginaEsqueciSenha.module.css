@@ -1,22 +1,18 @@
-.divPaginaLogin{
+.divPaginaEsqueciSenha{
     display: flex;
     flex-direction: column;
     justify-content: space-around;
 }
-.divInput {
+
+.divInput{
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-.aEsqueceuSenha {
-    text-decoration: none;
-}
-.divLabelsRoxaEAmarela {
-    display: flex;
-    flex-direction: row;
+    width: 100%;
     justify-content: space-around;
 }
-.divButton {
+
+.divButton{
     display: flex;
     flex: 1;
     flex-direction: row;

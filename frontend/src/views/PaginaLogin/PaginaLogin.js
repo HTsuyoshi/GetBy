@@ -5,28 +5,46 @@ import LabelInput from '../../components/LabelInput/LabelInput';
 import LabelTextoRoxo from '../../components/LabelTextoRoxo/LabelTextoRoxo';
 import LabelTextoAmarelo from '../../components/LabelTextoAmarelo/LabelTextoAmarelo';
 import Input from '../../components/Input/Input';
+import ButtonAmarelo from '../../components/ButtonAmarelo/ButtonAmarelo';
+import { useNavigate } from "react-router-dom";
 
 const PaginaLogin = () => {
   const [usuario, setUsuario] = useState(null);
   console.log(usuario);
+  const navigate = useNavigate();
+
   function changeUsuario(userInput) {
     setUsuario(userInput);
   }
+
+  function handleButtonEnviarClicked() {
+    navigate("/")
+  }
+
   return (
-    <div className={styles.PaginaLogin} data-testid="PaginaLogin">
+    <div className={styles.divPaginaLogin} data-testid="PaginaLogin">
       <LabelTituloAmarelo titulo={"Login"}/>
-      <LabelInput textoLabel={"Usuário"} />
-      <Input handleInputChange={changeUsuario} />
-      <LabelInput textoLabel={"Senha"} />
-      <Input handleInputChange={changeUsuario} />
+      <div className={styles.divInput}>
+        <LabelInput textoLabel={"Usuário"} />
+        <Input handleInputChange={changeUsuario} />
+      </div>
+      <div className={styles.divInput}>
+        <LabelInput textoLabel={"Senha"} />
+        <Input handleInputChange={changeUsuario} />
+      </div>
       <div className={styles.divLabelsRoxaEAmarela}>
         <LabelTextoRoxo texto={"Ainda não tem uma conta?"} />
         <LabelTextoAmarelo texto={"Clique aqui"} />
       </div>
       <div className={styles.divLabelsRoxaEAmarela}>
         <LabelTextoRoxo texto={"Esqueceu sua senha?"} />
-        <LabelTextoAmarelo texto={"Clique aqui"} />
-      </div>  
+        <a href={"/esqueciSenha"} className={styles.aEsqueceuSenha}>
+          <LabelTextoAmarelo texto={"Clique aqui"} />
+        </a>
+      </div> 
+      <div className={styles.divButton}> 
+        <ButtonAmarelo texto={"Entrar"} handleButtonClick={handleButtonEnviarClicked}/>
+      </div>
     </div>
   )
 };
