@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './PaginaBuscarAjuda.module.css';
 import LabelEmocoes from '../../components/LabelEmocoes/LabelEmocoes';
-import LabelComoEstaHoje from '../../components/LabelComoEstaHoje/LabelComoEstaHoje';
+import LabelTextoRoxo from '../../components/LabelTextoRoxo/LabelTextoRoxo';
 import IconHappy from '../../components/IconHappy/IconHappy';
 import IconAngry from '../../components/IconAngry/IconAngry';
 import IconSad from '../../components/IconSad/IconSad';
@@ -11,8 +11,8 @@ const PaginaBuscarAjuda = () => (
     <div className={styles.divLabelEmocoes}>
       <LabelEmocoes />
     </div>
-    <div className={styles.divLabelComoEstaHoje}>
-      <LabelComoEstaHoje />
+    <div className={styles.divLabelTextoRoxo}>
+      <LabelTextoRoxo texto={"Como você está se sentindo hoje?"}/>
     </div>
     <div className={styles.divIconesEmocoes}>
       <IconHappy />
