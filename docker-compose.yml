@@ -112,7 +112,7 @@ services:
       - POSTGRES_DB_FILE=${POSTGRES_DB_FILE:?err}
       - POSTGRES_USER_FILE=${POSTGRES_USER_FILE:?err}
       - POSTGRES_PASSWORD_FILE=${POSTGRES_PASSWORD_FILE:?err}
-      - LANG="pt_BR.UTF-8"
+      - LANG="pt_BR-UTF-8"
 
     secrets:
       - source: db
