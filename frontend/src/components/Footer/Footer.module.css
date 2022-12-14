@@ -1,5 +1,6 @@
 .divFooter {
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: space-around;
+    align-items: baseline;
 }

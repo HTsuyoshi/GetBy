@@ -1,0 +1,18 @@
+.divPaginaCadastreSe {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.divInput {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.divButton {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    justify-content: center;
+}

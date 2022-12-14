@@ -1,0 +1,15 @@
+.divPaginaAtendimento {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+.divFormulario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.divFormularioEnviado {
+    display: none;
+}

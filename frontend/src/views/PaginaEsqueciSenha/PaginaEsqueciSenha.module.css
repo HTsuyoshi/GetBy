@@ -1,0 +1,20 @@
+.divPaginaEsqueciSenha{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.divInput{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.divButton{
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    justify-content: center;
+}
