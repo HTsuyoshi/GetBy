@@ -121,3 +121,10 @@ async def get_sugestao():
     sugestoes = db.session.query(Sugestao).all()
     return sugestoes
 
+@getby.get('/sugestao/aleatorio')
+async def get_sugestao_aleatorio():
+    sugestoes = db.session.query(Sugestao).all()
+    from random import shuffle
+    shuffle(sugestoes)
+    return sugestoes.pop(0)
+
