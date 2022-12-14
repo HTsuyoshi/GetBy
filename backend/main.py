@@ -1,11 +1,15 @@
 from fastapi import FastAPI
+from fastapi import Response, Cookie
 from fastapi_sqlalchemy import DBSessionMiddleware, db
 from fastapi.middleware.cors import CORSMiddleware
+import bcrypt
+import jwt
+
+from datetime import datetime
+import os
 
 from models import Usuario, Sentimento, Sentimento_usuario, Sugestao
 from schema import Schema_usuario, Schema_sentimento, Schema_sentimento_usuario, Schema_sugestao
-
-import os
 
 getby = FastAPI()
 
@@ -24,8 +28,10 @@ getby.add_middleware(
 # CSRF token error
 getby.add_middleware(DBSessionMiddleware, db_url=db_url)
 
+CHAVE_SECRETA="chave_super_secreta"
+ALGORITMO="HS256"
+
 from pydantic import BaseModel
-from fastapi.encoders import jsonable_encoder
 
 class Login_info(BaseModel):
     email: str
@@ -37,34 +43,44 @@ async def login_user(login: Login_info):
     if not passwd: return {'message': 'Login failed'}
     passwd = passwd.senha.encode("UTF-8")
 
-    import bcrypt
     if bcrypt.checkpw(login.password.encode('UTF-8'), passwd):
-        data = jsonable_encoder(login)
-        import jwt
-        encoded_jwt = jwt.encode(data, "chave_super_secreta", algorithm="HS256")
-        return {'token': encoded_jwt }
+        data = { 'email': login.email, 'date': datetime.now().strftime('%H-%M-%S')}
+        encoded_jwt = jwt.encode(data, CHAVE_SECRETA, ALGORITMO)
+        res = Response()
+        res.set_cookie(key='AUTH', value=encoded_jwt)
+        return res
     else:
         return {'message': 'Login failed'}
 
-@getby.post('/usuario/', response_model=Schema_usuario)
+@getby.post('/cadastro/', response_model=Schema_usuario)
 async def add_usuario(usuario: Schema_usuario):
-    salt = b'$2b$12$Fs26pKkK/O3ASd9UAYfOTe' # bcrypt.gensalt()
-    novo_usuario = Usuario(nome=usuario.nome, email=usuario.email, senha=usuario.email)
+    novo_usuario = Usuario(nome=usuario.nome, email=usuario.email, senha=bcrypt.hashpw(usuario.senha.encode('UTF-8'), bcrypt.gensalt()).decode('UTF-8'))
+    email_existe = db.session.query(Usuario).filter(Usuario.email == usuario.email).first()
+    if email_existe:
+        return Response('a')
+    usuario_existe = db.session.query(Usuario).filter(Usuario.nome == usuario.nome).first()
+    if usuario_existe:
+        return Response('a')
+
     db.session.add(novo_usuario)
     db.session.commit()
-    return novo_usuario
+    res = Response("Sucesso")
+    data = { 'email': usuario.email, 'date': datetime.now().strftime('%H-%M-%S')}
+    encoded_jwt = jwt.encode(data, CHAVE_SECRETA, ALGORITMO)
+    res.set_cookie(key='AUTH', value=encoded_jwt)
+    return res
 
-@getby.get('/usuario/')
-async def get_usuario():
-    usuarios = db.session.query(Usuario).all()
-    return usuarios
+#@getby.get('/usuario/')
+#async def get_usuario():
+#    usuarios = db.session.query(Usuario).all()
+#    return usuarios
 
-@getby.post('/sentimento/', response_model=Schema_sentimento)
-async def add_sentimento(sentimento: Schema_sentimento):
-    novo_sentimento = Sentimento(sentimento=sentimento.sentimento)
-    db.session.add(novo_sentimento)
-    db.session.commit()
-    return novo_sentimento
+#@getby.post('/sentimento/', response_model=Schema_sentimento)
+#async def add_sentimento(sentimento: Schema_sentimento):
+#    novo_sentimento = Sentimento(sentimento=sentimento.sentimento)
+#    db.session.add(novo_sentimento)
+#    db.session.commit()
+#    return novo_sentimento
 
 @getby.get('/sentimento/')
 async def get_sentimento():
@@ -89,7 +105,12 @@ async def get_sentimento_usuario_usuario(number: int):
     return sentimentos_usuarios
 
 @getby.post('/sugestao/', response_model=Schema_sugestao)
-async def add_sugestao(sugestao: Schema_sugestao):
+async def add_sugestao(sugestao: Schema_sugestao, AUTH = Cookie(None)):
+    try:
+        if not jwt.decode(AUTH.encode('UTF-8'), CHAVE_SECRETA, [ALGORITMO]):
+            return Response(403)
+    except Exception:
+        return Response(403)
     nova_sugestao = Sugestao(id_usuario=sugestao.id_usuario, id_sentimento=sugestao.id_sentimento, sugestao=sugestao.sugestao)
     db.session.add(nova_sugestao)
     db.session.commit()
