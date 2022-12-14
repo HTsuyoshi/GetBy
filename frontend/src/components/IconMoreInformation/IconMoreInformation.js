@@ -3,7 +3,7 @@ import styles from './IconMoreInformation.module.css';
 import iconeMoreInfo from '../../assets/IconeMoreInfo.svg';
 
 const IconMoreInformation = () => (
-  <img src={iconeMoreInfo} className={styles.imgIcon} alt="Ícone de Mais Informações"/>
+  <img title={"Mais informações"} src={iconeMoreInfo} className={styles.imgIcon} alt="Ícone de Mais Informações"/>
 );
 
 IconMoreInformation.propTypes = {};

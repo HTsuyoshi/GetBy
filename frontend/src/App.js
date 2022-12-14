@@ -14,6 +14,9 @@ import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import PaginaEsqueciSenha from  './views/PaginaEsqueciSenha/PaginaEsqueciSenha.js';
 import PaginaCadastreSe from  './views/PaginaCadastreSe/PaginaCadastreSe.js';
+import PaginaValidacao from  './views/PaginaValidacao/PaginaValidacao.js';
+import PaginaAtendimento from  './views/PaginaAtendimento/PaginaAtendimento.js';
+import PaginaMapa from  './views/PaginaMapa/PaginaMapa.js';
 
 function App() {
   return (
@@ -29,6 +32,9 @@ function App() {
             <Route path="/login" element={<PaginaLogin />} />
             <Route path="/esqueciSenha" element={<PaginaEsqueciSenha />} />
             <Route path="/cadastreSe" element={<PaginaCadastreSe />} />
+            <Route path="/validacao" element={<PaginaValidacao />} />
+            <Route path="/atendimento" element={<PaginaAtendimento />} />
+            <Route path="/mapa" element={<PaginaMapa />} />
           </ Routes>
         </div>
         <Footer></Footer>

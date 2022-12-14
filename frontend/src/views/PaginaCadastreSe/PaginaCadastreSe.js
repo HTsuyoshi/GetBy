@@ -33,15 +33,15 @@ const PaginaCadastreSe = () => {
     <div className={styles.divPaginaCadastreSe} data-testid="PaginaCadastreSe">
       <LabelTituloAmarelo titulo={"Cadastre-se"}/>
       <div className={styles.divInput}>
-        <LabelInput textoLabel={"Email"} />
+        <LabelInput texto={"Email"} />
         <Input handleInputChange={changeEmail} />
       </div>
       <div className={styles.divInput}>
-        <LabelInput textoLabel={"Usuário"} />
+        <LabelInput texto={"Usuário"} />
         <Input handleInputChange={changeUsuario} />
       </div>
       <div className={styles.divInput}>
-        <LabelInput textoLabel={"Senha"} />
+        <LabelInput texto={"Senha"} />
         <Input handleInputChange={changeSenha} />
       </div>
       <div className={styles.divButton}> 

@@ -3,7 +3,7 @@ import styles from './Home.module.css';
 import Logo from '../../components/Logo/Logo';
 import LabelTextoAmarelo from '../../components/LabelTextoAmarelo/LabelTextoAmarelo';
 import ButtonAmarelo from '../../components/ButtonAmarelo/ButtonAmarelo';
-import ButtonReceberAjuda from '../../components/ButtonReceberAjuda/ButtonReceberAjuda';
+import ButtonRoxo from '../../components/ButtonRoxo/ButtonRoxo';
 import { useNavigate } from "react-router-dom";
 
 
@@ -12,6 +12,9 @@ const Home = () => {
 
   function navegaPaginaAjudar() {
       navigate('/ajudar');  
+  }
+  function navegaPaginaReceberAjuda() {
+    navigate('/buscarAjuda');  
   }
   return(
     <div className={styles.divHome} data-testid="Home">
@@ -23,7 +26,7 @@ const Home = () => {
       </div>
       <div className={styles.divButtons}>
         <ButtonAmarelo texto={"Ajudar"} handleButtonClick={navegaPaginaAjudar}/>
-        <ButtonReceberAjuda />
+        <ButtonRoxo texto={"Receber ajuda"}  handleButtonClick={navegaPaginaReceberAjuda}/>
       </div>
     </div>
   )

@@ -4,7 +4,7 @@ import styles from './LabelInput.module.css';
 const LabelInput = (props) => (
   <div className={styles.divLabelInput} data-testid="LabelInput">
     <label className={styles.labelInput} >
-      {props.textoLabel}
+      {props.texto}
     </label>
   </div>
 );

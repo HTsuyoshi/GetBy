@@ -32,11 +32,11 @@ const PaginaLogin = () => {
     <div className={styles.divPaginaLogin} data-testid="PaginaLogin">
       <LabelTituloAmarelo titulo={"Login"}/>
       <div className={styles.divInput}>
-        <LabelInput textoLabel={"Usuário"} />
+        <LabelInput texto={"Usuário"} />
         <Input handleInputChange={changeUsuario} />
       </div>
       <div className={styles.divInput}>
-        <LabelInput textoLabel={"Senha"} />
+        <LabelInput texto={"Senha"} />
         <Input handleInputChange={changeSenha} />
       </div>
       <div className={styles.divLabelsRoxaEAmarela}>

@@ -14,7 +14,7 @@ const PaginaEsqueciSenha = () => {
   return (
     <div className={styles.divPaginaEsqueciSenha} data-testid="PaginaEsqueciSenha">
       <LabelTituloAmarelo titulo={"Esqueci minha senha"}/>
-      <LabelInput textoLabel={"Coloque o seu email"}/>
+      <LabelInput texto={"Coloque o seu email"}/>
       <div className={styles.divInput}>
         <Input/>
       </div>
