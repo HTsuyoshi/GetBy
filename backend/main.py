@@ -1,28 +1,16 @@
-import uvicorn
 from fastapi import FastAPI
 from fastapi_sqlalchemy import DBSessionMiddleware, db
 from fastapi.middleware.cors import CORSMiddleware
 
 from models import Usuario, Sentimento, Sentimento_usuario, Sugestao
 from schema import Schema_usuario, Schema_sentimento, Schema_sentimento_usuario, Schema_sugestao
+
 import os
 
 getby = FastAPI()
 
-db_name: str
-db_user: str
-db_pass: str
-
-with open(os.environ['POSTGRES_DB_FILE'], 'r') as f:
-    db_name = f.read().strip()
-
-with open(os.environ['POSTGRES_USER_FILE'], 'r') as f:
-    db_user = f.read().strip()
-
-with open(os.environ['POSTGRES_PASSWORD_FILE'], 'r') as f:
-    db_pass = f.read().strip()
-
-db_url: str =  f'postgresql://{db_user}:{db_pass}@database/{db_name}'
+with open(os.environ['POSTGRES_DB_FILE'], 'r') as db_name, open(os.environ['POSTGRES_USER_FILE'], 'r') as db_user, open(os.environ['POSTGRES_PASSWORD_FILE'], 'r') as db_pass:
+    db_url: str =  f'postgresql://{db_user.read().strip()}:{db_pass.read().strip()}@database/{db_name.read().strip()}'
 
 # CORS error
 getby.add_middleware(
@@ -33,15 +21,34 @@ getby.add_middleware(
     allow_headers=["*"],
 )
 
-# to avoid csrftokenError
+# CSRF token error
 getby.add_middleware(DBSessionMiddleware, db_url=db_url)
 
-@getby.get('/')
-def hello_world() -> dict[str, str]:
-    return {'hello_world': 'hello_world'}
+from pydantic import BaseModel
+from fastapi.encoders import jsonable_encoder
+
+class Login_info(BaseModel):
+    email: str
+    password: str
+
+@getby.post("/login")
+async def login_user(login: Login_info):
+    passwd = db.session.query(Usuario).filter(Usuario.email == login.email).first()
+    if not passwd: return {'message': 'Login failed'}
+    passwd = passwd.senha.encode("UTF-8")
+
+    import bcrypt
+    if bcrypt.checkpw(login.password.encode('UTF-8'), passwd):
+        data = jsonable_encoder(login)
+        import jwt
+        encoded_jwt = jwt.encode(data, "chave_super_secreta", algorithm="HS256")
+        return {'token': encoded_jwt }
+    else:
+        return {'message': 'Login failed'}
 
 @getby.post('/usuario/', response_model=Schema_usuario)
 async def add_usuario(usuario: Schema_usuario):
+    salt = b'$2b$12$Fs26pKkK/O3ASd9UAYfOTe' # bcrypt.gensalt()
     novo_usuario = Usuario(nome=usuario.nome, email=usuario.email, senha=usuario.email)
     db.session.add(novo_usuario)
     db.session.commit()
