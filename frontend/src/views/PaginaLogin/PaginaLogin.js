@@ -7,10 +7,11 @@ import LabelTextoAmarelo from '../../components/LabelTextoAmarelo/LabelTextoAmar
 import Input from '../../components/Input/Input';
 import ButtonAmarelo from '../../components/ButtonAmarelo/ButtonAmarelo';
 import { useNavigate } from "react-router-dom";
+import axios from 'axios'
 
 const PaginaLogin = () => {
-  const [usuario, setUsuario] = useState(null);
-  console.log(usuario);
+  const [email, setUsuario] = useState(null);
+  console.log(email);
   const [senha, setSenha] = useState(null);
   console.log(senha);
 
@@ -25,14 +26,28 @@ const PaginaLogin = () => {
   }
 
   function handleButtonEnviarClicked() {
-    navigate("/")
+    console.log("Login");
+    const urlPostLogin = 'http://localhost:8000/login/';
+    axios.defaults.headers.common['withCredentials'] = true;
+    axios.defaults.headers.common['Access-Control-Allow-Origin'] = false;
+    axios.post(urlPostLogin, {
+      email: email,
+      password: senha,
+    },{
+       withCredentials: true
+    }).then(function (response){
+      console.log(response);
+    }).catch(function (error) {
+      console.log(error);
+    })
+    navigate('/')
   }
 
   return (
     <div className={styles.divPaginaLogin} data-testid="PaginaLogin">
       <LabelTituloAmarelo titulo={"Login"}/>
       <div className={styles.divInput}>
-        <LabelInput texto={"Usuário"} />
+        <LabelInput texto={"Email"} />
         <Input handleInputChange={changeUsuario} />
       </div>
       <div className={styles.divInput}>

@@ -1,15 +1,16 @@
 from fastapi import FastAPI
-from fastapi import Response, Cookie
+from fastapi import Response, Cookie, Header, HTTPException
 from fastapi_sqlalchemy import DBSessionMiddleware, db
 from fastapi.middleware.cors import CORSMiddleware
 import bcrypt
 import jwt
 
 from datetime import datetime
+from typing import Union
 import os
 
 from models import Usuario, Sentimento, Sentimento_usuario, Sugestao
-from schema import Schema_usuario, Schema_sentimento, Schema_sentimento_usuario, Schema_sugestao
+from schema import Login_info, Schema_usuario, Schema_sentimento, Schema_sentimento_usuario, Schema_sugestao
 
 getby = FastAPI()
 
@@ -31,44 +32,37 @@ getby.add_middleware(DBSessionMiddleware, db_url=db_url)
 CHAVE_SECRETA="chave_super_secreta"
 ALGORITMO="HS256"
 
-from pydantic import BaseModel
-
-class Login_info(BaseModel):
-    email: str
-    password: str
-
 @getby.post("/login")
-async def login_user(login: Login_info):
+async def login_user(login: Login_info, res: Response):
     passwd = db.session.query(Usuario).filter(Usuario.email == login.email).first()
     if not passwd: return {'message': 'Login failed'}
     passwd = passwd.senha.encode("UTF-8")
 
     if bcrypt.checkpw(login.password.encode('UTF-8'), passwd):
-        data = { 'email': login.email, 'date': datetime.now().strftime('%H-%M-%S')}
+        data = { 'email': login.email, 'date': datetime.now().strftime('%H-%M-%S') }
         encoded_jwt = jwt.encode(data, CHAVE_SECRETA, ALGORITMO)
-        res = Response()
         res.set_cookie(key='AUTH', value=encoded_jwt)
-        return res
+        return { 'AUTH': encoded_jwt }
     else:
-        return {'message': 'Login failed'}
+        raise HTTPException(status_code=403, detail='Autentiação falhou')
 
-@getby.post('/cadastro/', response_model=Schema_usuario)
-async def add_usuario(usuario: Schema_usuario):
+@getby.post('/cadastro/')
+async def add_usuario(usuario: Schema_usuario, res: Response):
     novo_usuario = Usuario(nome=usuario.nome, email=usuario.email, senha=bcrypt.hashpw(usuario.senha.encode('UTF-8'), bcrypt.gensalt()).decode('UTF-8'))
     email_existe = db.session.query(Usuario).filter(Usuario.email == usuario.email).first()
     if email_existe:
-        return Response('a')
+        raise HTTPException(status_code=400, detail='Cadastro falhou')
+
     usuario_existe = db.session.query(Usuario).filter(Usuario.nome == usuario.nome).first()
     if usuario_existe:
-        return Response('a')
+        raise HTTPException(status_code=400, detail='Cadastro falhou')
 
     db.session.add(novo_usuario)
     db.session.commit()
-    res = Response("Sucesso")
     data = { 'email': usuario.email, 'date': datetime.now().strftime('%H-%M-%S')}
     encoded_jwt = jwt.encode(data, CHAVE_SECRETA, ALGORITMO)
     res.set_cookie(key='AUTH', value=encoded_jwt)
-    return res
+    return { 'AUTH': encoded_jwt }
 
 #@getby.get('/usuario/')
 #async def get_usuario():

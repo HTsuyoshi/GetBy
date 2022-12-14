@@ -5,6 +5,7 @@ import LabelInput from '../../components/LabelInput/LabelInput';
 import Input from '../../components/Input/Input';
 import ButtonAmarelo from '../../components/ButtonAmarelo/ButtonAmarelo';
 import { useNavigate } from "react-router-dom";
+import axios from 'axios'
 
 const PaginaCadastreSe = () => {
   const [email, setEmail] = useState(null);
@@ -26,6 +27,20 @@ const PaginaCadastreSe = () => {
     setSenha(passwordInput);
   }
   function handleButtonEnviarClicked() {
+    console.log("Cadastro");
+    const urlPostLogin = 'http://localhost:8000/cadastro/';
+    axios.defaults.headers.common['withCredentials'] = true;
+    axios.defaults.headers.common['Access-Control-Allow-Origin'] = false;
+    axios.post(urlPostLogin, {
+      id_usuario: 0,
+      nome: usuario,
+      email: email,
+      password: senha,
+    }).then(function (response){
+      console.log(response);
+    }).catch(function (error) {
+      console.log(error);
+    })
     navigate("/")
   }
 
