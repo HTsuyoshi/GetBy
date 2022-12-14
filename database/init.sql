@@ -5,7 +5,7 @@ CREATE TABLE usuario
 	id_usuario serial primary key,
 	nome varchar(50),
 	email varchar(50),
-	senha varchar(61)
+	senha char(60)
 );
 
 CREATE TABLE sentimento
