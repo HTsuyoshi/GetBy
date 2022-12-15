@@ -121,6 +121,7 @@ services:
         mode: 0440
 
   database:
+    profiles: [ "deploy", "test" ]
     hostname: database
     container_name: getby_database
     image: getby_database:1.0

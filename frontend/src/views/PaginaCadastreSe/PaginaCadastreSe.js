@@ -35,7 +35,7 @@ const PaginaCadastreSe = () => {
       id_usuario: 0,
       nome: usuario,
       email: email,
-      password: senha,
+      senha: senha,
     }).then(function (response){
       console.log(response);
     }).catch(function (error) {

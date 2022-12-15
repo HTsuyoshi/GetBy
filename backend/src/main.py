@@ -32,7 +32,7 @@ getby.add_middleware(DBSessionMiddleware, db_url=db_url)
 CHAVE_SECRETA="chave_super_secreta"
 ALGORITMO="HS256"
 
-def verify_login(AUTH: Cookie):
+def verify_login(AUTH):
     if not AUTH:
         raise HTTPException(status_code=403, detail='Usuário não logado')
     data: dict[str, str]

@@ -18,18 +18,14 @@ const PaginaAjudar = () => {
 
   function changeDica(dica) {
     setDica(dica);
-    console.log(dica);
   }
 
   function changeEmocao(emocao) {
     setEmocao(emocao);
-    // TODO remover prox linha
-    console.log(emocao);
   }
 
   function submitDica() {
-    //TODO remover prox linha
-    console.log("Submit Dica");
+    console.log(emocao);
     const urlPostDica = 'http://localhost:8000/sugestao/';
     axios.defaults.headers.common['withCredentials'] = true;
     axios.defaults.headers.common['Access-Control-Allow-Origin'] = false;
