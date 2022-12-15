@@ -41,6 +41,7 @@ Foi disponibilizado os seguintes endpoints:
 - `/sentimento_usuario/usuario/{number}/`: listar os sentimentos que um usuário específico tem
 - `/sugestao/`: listar todas as sugestões do banco de dados
 - `/sugestao/aleatorio/`: pegar uma sugestão aleatória do banco de dados
+- `/test_usuario_sugestao/`: listar os usuário e seus feedbacks em relação a uma sugestão
 
 #### POST
 
@@ -48,3 +49,4 @@ Foi disponibilizado os seguintes endpoints:
 - `/cadastro/`: o usuário pode se cadastrar e pegar um token JWT
 - `/sentimento_usuario/`: adicionar uma um sentimento que o usuário *autenticado* está sentindo
 - `/sugestao/`: o usuário *autenticado* adicionar uma sugestão ao banco de dados
+- `/usuario_sugestao/`: adicionar o _feedback_ de um usuário em relação a uma sugestão

@@ -241,7 +241,7 @@ def test_sugestao_aleatorio_valido():
     client = TestClient(getby)
     response = client.get('/sugestao/aleatorio')
     assert response.status_code == 200
-    assert response.json() in [{'id_sentimento': 1, 'id_sugestao': 1, 'id_usuario': 5, 'sugestao': 'procure se distrair mais'}, {'id_sentimento': 2, 'id_sugestao': 2, 'id_usuario': 5, 'sugestao': 'procure se distrair mais com peixes'}, {'id_sentimento': 3, 'id_sugestao': 3, 'id_usuario': 5, 'sugestao': 'procure se distrair mais com cachorros'}, {'id_sentimento': 3, 'id_sugestao': 4, 'id_usuario': 2, 'sugestao': 'Quando estiver triste, converse com seu psicólogo ou amigo sobre o que te deixou com esse sentimento. Aproveite e busque assistir um filme de comédia para ajudar um pouco no humor'}]
+    assert response.json() in [{'sugestao': 'procure se distrair mais', 'id_sugestao': 1, 'id_usuario': 5, 'id_sentimento': 1, 'feedback': -2}, {'sugestao': 'procure se distrair mais com peixes', 'id_sugestao': 2, 'id_usuario': 5, 'id_sentimento': 2, 'feedback': 4}, {'sugestao': 'procure se distrair mais com cachorros', 'id_sugestao': 3, 'id_usuario': 5, 'id_sentimento': 3, 'feedback': 8}, {'sugestao': 'Quando estiver triste, converse com seu psicólogo ou amigo sobre o que te deixou com esse sentimento. Aproveite e busque assistir um filme de comédia para ajudar um pouco no humor', 'id_sugestao': 4, 'id_usuario': 2, 'id_sentimento': 3, 'feedback': 8}]
 
 ### /sugestao/ ###
 
@@ -254,7 +254,7 @@ def test_sugestao_get_valido():
     client = TestClient(getby)
     response = client.get('/sugestao/')
     assert response.status_code == 200
-    assert response.json() == [{'id_sentimento': 1, 'id_sugestao': 1, 'id_usuario': 5, 'sugestao': 'procure se distrair mais'}, {'id_sentimento': 2, 'id_sugestao': 2, 'id_usuario': 5, 'sugestao': 'procure se distrair mais com peixes'}, {'id_sentimento': 3, 'id_sugestao': 3, 'id_usuario': 5, 'sugestao': 'procure se distrair mais com cachorros'}, {'id_sentimento': 3, 'id_sugestao': 4, 'id_usuario': 2, 'sugestao': 'Quando estiver triste, converse com seu psicólogo ou amigo sobre o que te deixou com esse sentimento. Aproveite e busque assistir um filme de comédia para ajudar um pouco no humor'}]
+    assert response.json() == [{'sugestao': 'procure se distrair mais', 'id_sugestao': 1, 'id_usuario': 5, 'id_sentimento': 1, 'feedback': -2}, {'sugestao': 'procure se distrair mais com peixes', 'id_sugestao': 2, 'id_usuario': 5, 'id_sentimento': 2, 'feedback': 4}, {'sugestao': 'procure se distrair mais com cachorros', 'id_sugestao': 3, 'id_usuario': 5, 'id_sentimento': 3, 'feedback': 8}, {'sugestao': 'Quando estiver triste, converse com seu psicólogo ou amigo sobre o que te deixou com esse sentimento. Aproveite e busque assistir um filme de comédia para ajudar um pouco no humor', 'id_sugestao': 4, 'id_usuario': 2, 'id_sentimento': 3, 'feedback': 8}]
 
 def test_sugestao_sem_login_invalido():
     client = TestClient(getby)
@@ -262,7 +262,7 @@ def test_sugestao_sem_login_invalido():
     response = client.post(
             '/sugestao/',
             headers = { 'X-Token': 'coneofsilence' },
-            json = { 'id_sugestao': 0, 'id_usuario': 0, 'sentimento': 'triste', 'sugestao': 'fique feliz :D' }
+            json = { 'id_sugestao': 0, 'id_usuario': 0, 'sentimento': 'triste', 'sugestao': 'fique feliz :D', 'feedback': 0 }
     )
     assert response.status_code == 403
     assert response.json() == { 'detail': 'Usuário não logado' }
@@ -278,13 +278,12 @@ def test_sugestao_post_valido():
     response = client.post(
             '/sugestao/',
             headers = { 'X-Token': 'coneofsilence' },
-            json = { 'id_sugestao': 0, 'id_usuario': 0, 'sentimento': 'triste', 'sugestao': 'fique feliz :D' },
+            json = { 'id_sugestao': 0, 'id_usuario': 0, 'sentimento': 'triste', 'sugestao': 'fique feliz :D', 'feedback': 0 },
             cookies = { 'AUTH': token }
     )
     assert response.status_code == 200
     assert response.json()['sentimento'] == 'triste'
     assert response.json()['sugestao'] == 'fique feliz :D'
-
 
 def test_sugestao_token_invalido_invalido():
     client = TestClient(getby)
@@ -292,7 +291,7 @@ def test_sugestao_token_invalido_invalido():
     response = client.post(
             '/sugestao/',
             headers = { 'X-Token': 'coneofsilence' },
-            json = { 'id_sugestao': 0, 'id_usuario': 0, 'sentimento': 'triste', 'sugestao': 'fique feliz :D' },
+            json = { 'id_sugestao': 0, 'id_usuario': 0, 'sentimento': 'triste', 'sugestao': 'fique feliz :D', 'feedback': 0 },
             cookies = { 'AUTH': token }
     )
     assert response.status_code == 403
@@ -309,8 +308,73 @@ def test_sugestao_sentimento_inexistente_invalido():
     response = client.post(
             '/sugestao/',
             headers = { 'X-Token': 'coneofsilence' },
-            json = { 'id_sugestao': 0, 'id_usuario': 0, 'sentimento': 'programador :0', 'sugestao': 'fique feliz :D' },
+            json = { 'id_sugestao': 0, 'id_usuario': 0, 'sentimento': 'programador :0', 'sugestao': 'fique feliz :D', 'feedback': 0 },
             cookies = { 'AUTH': token }
     )
     assert response.status_code == 404
     assert response.json() == { 'detail': 'Sentimento não existe' }
+
+### /usuario_sugestao/ ###
+
+def test_usuario_sugestao_request_invalido():
+    client = TestClient(getby)
+    response = client.delete('/usuario_sugestao/')
+    assert response.status_code == 405
+
+def test_sugestao_sem_login_invalido():
+    client = TestClient(getby)
+    client.auth = None
+    response = client.post(
+            '/usuario_sugestao/',
+            headers = { 'X-Token': 'coneofsilence' },
+            json = { 'id_usuario': 0, 'id_sugestao': 2, 'feedback': 1 }
+    )
+    assert response.status_code == 403
+    assert response.json() == { 'detail': 'Usuário não logado' }
+
+def test_usuario_sugestao_post_valido():
+    client = TestClient(getby)
+    response = client.post(
+            '/login/',
+            headers = { 'X-Token': 'coneofsilence' },
+            json = { 'email': 'caio@gg.com', 'senha': '123' }
+    )
+    token = response.cookies['AUTH']
+    response = client.post(
+            '/usuario_sugestao/',
+            headers = { 'X-Token': 'coneofsilence' },
+            json = { 'id_usuario': 0, 'id_sugestao': 2, 'feedback': 1 },
+            cookies = { 'AUTH': token }
+    )
+    assert response.status_code == 200
+    assert response.json()['id_sugestao'] == 2
+    assert response.json()['feedback'] == 1
+
+def test_usuario_sugestao_token_invalido_invalido():
+    client = TestClient(getby)
+    token = 'token_invalido'
+    response = client.post(
+            '/usuario_sugestao/',
+            headers = { 'X-Token': 'coneofsilence' },
+            json = { 'id_usuario': 0, 'id_sugestao': 2, 'feedback': 1 },
+            cookies = { 'AUTH': token }
+    )
+    assert response.status_code == 403
+    assert response.json() == { 'detail': 'Token inválido' }
+
+def test_usuario_sugestao_sugestao_inexistente_invalido():
+    client = TestClient(getby)
+    response = client.post(
+            '/login/',
+            headers = { 'X-Token': 'coneofsilence' },
+            json = { 'email': 'caio@gg.com', 'senha': '123' }
+    )
+    token = response.cookies['AUTH']
+    response = client.post(
+            '/usuario_sugestao/',
+            headers = { 'X-Token': 'coneofsilence' },
+            json = { 'id_usuario': 0, 'id_sugestao': 9999999, 'feedback': 1 },
+            cookies = { 'AUTH': token }
+    )
+    assert response.status_code == 404
+    assert response.json() == { 'detail': 'Sugestão não existe' }

@@ -38,6 +38,7 @@ const PaginaAjudar = () => {
       id_sugestao: 5,
       sentimento: emocao.toLowerCase(),
       sugestao: dica,
+      feedback: 0,
       onProxyRes: function (proxyRes, req, res) {
        proxyRes.headers['Allow-Cross-Origin'] = '*';
        proxyRes.headers['Access-Control-Allow-Origin'] = 'http://localhost:80';

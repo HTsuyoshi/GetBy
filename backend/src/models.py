@@ -26,3 +26,10 @@ class Sugestao(Base):
     id_usuario = Column(Integer, ForeignKey('usuario.id_usuario'))
     id_sentimento = Column(Integer, ForeignKey('sentimento.id_sentimento'))
     sugestao = Column(String)
+    feedback = Column(Integer)
+
+class Usuario_sugestao(Base):
+    __tablename__ = 'usuario_sugestao'
+    id_usuario = Column(Integer, ForeignKey('usuario.id_usuario'), primary_key=True)
+    id_sugestao = Column(Integer, ForeignKey('sugestao.id_sugestao'), primary_key=True)
+    feedback = Column(Integer)

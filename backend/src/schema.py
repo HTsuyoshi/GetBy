@@ -32,6 +32,15 @@ class Schema_sugestao(BaseModel):
     id_usuario: int
     sentimento: str
     sugestao: str
+    feedback: int
+
+    class Config:
+        orm_mode = True
+
+class Schema_usuario_sugestao(BaseModel):
+    id_sugestao: int
+    id_usuario: int
+    feedback: int
 
     class Config:
         orm_mode = True

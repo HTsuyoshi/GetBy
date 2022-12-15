@@ -9,8 +9,8 @@ from datetime import datetime
 from typing import Union
 import os
 
-from models import Usuario, Sentimento, Sentimento_usuario, Sugestao
-from schema import Login_info, Schema_usuario, Schema_sentimento, Schema_sentimento_usuario, Schema_sugestao
+from models import Usuario, Sentimento, Sentimento_usuario, Sugestao, Usuario_sugestao
+from schema import Login_info, Schema_usuario, Schema_sentimento, Schema_sentimento_usuario, Schema_sugestao, Schema_usuario_sugestao
 
 getby = FastAPI()
 
@@ -31,6 +31,16 @@ getby.add_middleware(DBSessionMiddleware, db_url=db_url)
 
 CHAVE_SECRETA="chave_super_secreta"
 ALGORITMO="HS256"
+
+def verify_login(AUTH: Cookie):
+    if not AUTH:
+        raise HTTPException(status_code=403, detail='Usuário não logado')
+    data: dict[str, str]
+    try:
+        data = jwt.decode(AUTH.encode('UTF-8'), CHAVE_SECRETA, [ALGORITMO])
+    except Exception:
+        raise HTTPException(status_code=403, detail='Token inválido')
+    return data
 
 @getby.get("/")
 async def status():
@@ -91,13 +101,7 @@ async def get_sentimento():
 
 @getby.post('/sentimento_usuario/', response_model=Schema_sentimento_usuario)
 async def add_sentimento_usuario(sentimento_usuario: Schema_sentimento_usuario, AUTH = Cookie(None)):
-    if not AUTH:
-        raise HTTPException(status_code=403, detail='Usuário não logado')
-    data: dict[str, str]
-    try:
-        data = jwt.decode(AUTH.encode('UTF-8'), CHAVE_SECRETA, [ALGORITMO])
-    except Exception:
-        raise HTTPException(status_code=403, detail='Token inválido')
+    data = verify_login(AUTH)
 
     usuario = db.session.query(Usuario).filter(Usuario.email == data['email']).first()
     if not usuario:
@@ -124,13 +128,7 @@ async def get_sentimento_usuario_usuario(number: int):
 
 @getby.post('/sugestao/', response_model=Schema_sugestao)
 async def add_sugestao(sugestao: Schema_sugestao, AUTH = Cookie(None)):
-    if not AUTH:
-        raise HTTPException(status_code=403, detail='Usuário não logado')
-    data: dict[str, str]
-    try:
-        data = jwt.decode(AUTH.encode('UTF-8'), CHAVE_SECRETA, [ALGORITMO])
-    except Exception:
-        raise HTTPException(status_code=403, detail='Token inválido')
+    data = verify_login(AUTH)
 
     usuario = db.session.query(Usuario).filter(Usuario.email == data['email']).first()
     if not usuario:
@@ -156,3 +154,31 @@ async def get_sugestao_aleatorio():
     from random import shuffle
     shuffle(sugestoes)
     return sugestoes.pop(0)
+
+@getby.get('/test_usuario_sugestao/')
+async def get_usuario_sugestao():
+    sugestoes = db.session.query(Sugestao).all()
+    return sugestoes
+
+@getby.post('/usuario_sugestao/', response_model=Schema_usuario_sugestao)
+async def add_usuario_sugestao(usuario_sugestao: Schema_usuario_sugestao, AUTH = Cookie(None)):
+    data = verify_login(AUTH)
+
+    usuario = db.session.query(Usuario).filter(Usuario.email == data['email']).first()
+    if not usuario:
+        raise HTTPException(status_code=404, detail='Usuário não existe')
+
+    sugestao = db.session.query(Sugestao).filter(Sugestao.id_sugestao == usuario_sugestao.id_sugestao).first()
+    if not sugestao:
+        raise HTTPException(status_code=404, detail='Sugestão não existe')
+    if usuario_sugestao.feedback > 0:
+        sugestao.feedback += 1
+    else:
+        sugestao.feedback -= 1
+    db.session.add(sugestao)
+    db.session.commit()
+
+    nova_sugestao = Usuario_sugestao(id_usuario=usuario.id_usuario, id_sugestao=sugestao.id_sentimento, feedback=sugestao.feedback)
+    db.session.add(nova_sugestao)
+    db.session.commit()
+    return usuario_sugestao

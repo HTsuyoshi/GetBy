@@ -5,6 +5,7 @@ import LabelInput from '../../components/LabelInput/LabelInput';
 import LabelTextoRoxo from '../../components/LabelTextoRoxo/LabelTextoRoxo';
 import ButtonAmarelo from '../../components/ButtonAmarelo/ButtonAmarelo';
 import ButtonRoxo from '../../components/ButtonRoxo/ButtonRoxo';
+import axios from 'axios'
 
 const PaginaValidacao = () => {
   const [idSugestao, setIdSugestao] = useState("#0");
@@ -18,10 +19,38 @@ const PaginaValidacao = () => {
   })
 
   function handleButtonInvalidoClicked() {
+    const urlPostLogin = 'http://localhost:8000/usuario_sugestao/';
+    axios.defaults.headers.common['withCredentials'] = true;
+    axios.defaults.headers.common['Access-Control-Allow-Origin'] = false;
+    axios.post(urlPostLogin, {
+      id_usuario: -1,
+      id_sugestao: 1,
+      feedback: -1
+    },{
+       withCredentials: true
+    }).then(function (response){
+      console.log(response);
+    }).catch(function (error) {
+      console.log(error);
+    })
     alert("Recomendação não aprovada")
   }
 
   function handleButtonValidoClicked() {
+    const urlPostLogin = 'http://localhost:8000/usuario_sugestao/';
+    axios.defaults.headers.common['withCredentials'] = true;
+    axios.defaults.headers.common['Access-Control-Allow-Origin'] = false;
+    axios.post(urlPostLogin, {
+      id_usuario: -1,
+      id_sugestao: 1,
+      feedback: -1
+    },{
+       withCredentials: true
+    }).then(function (response){
+      console.log(response);
+    }).catch(function (error) {
+      console.log(error);
+    })
     alert("Recomendação aprovada")
   }
 

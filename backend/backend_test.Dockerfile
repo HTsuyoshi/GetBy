@@ -13,4 +13,4 @@ USER getby
 COPY ./src/ ./src/
 COPY ./test/ ./test/
 
-CMD pytest -v -p no:cacheprovider
+CMD pytest -vv -p no:cacheprovider
