@@ -1,6 +1,7 @@
 version: '3.8'
 services:
   frontend:
+    profiles: [ "deploy" ]
     hostname: frontend
     container_name: getby_frontend
     image: getby_frontend:1.0
@@ -10,7 +11,6 @@ services:
     stop_signal: SIGINT
     networks:
       - front
-
     deploy:
       resources:
         limits:
@@ -22,15 +22,14 @@ services:
         delay: 5s
         max_attempts: 3
         window: 120s
-
     environment:
       - NODE_ENV=production
       - NODE_CONFIG_LOGLEVEL=debug
       - NPM_CONFIG_PREFIX=/home/getby/.npm-global
-
     ports: ["80:80"]
 
   backend:
+    profiles: [ "deploy" ]
     hostname: backend
     container_name: getby_backend
     image: getby_backend:1.0
@@ -38,7 +37,6 @@ services:
       context: backend
       dockerfile: backend.Dockerfile
     stop_signal: SIGINT
-
     deploy:
       resources:
         limits:
@@ -50,11 +48,9 @@ services:
         delay: 5s
         max_attempts: 3
         window: 120s
-
     user: "getby"
     restart: always
     cap_drop: [ "ALL" ]
-
     environment:
       - UVICORN_PORT=8000
       - UVICORN_HOST=0.0.0.0
@@ -62,16 +58,57 @@ services:
       - POSTGRES_DB_FILE=${POSTGRES_DB_FILE:?err}
       - POSTGRES_USER_FILE=${POSTGRES_USER_FILE:?err}
       - POSTGRES_PASSWORD_FILE=${POSTGRES_PASSWORD_FILE:?err}
-
     networks: [ "database" ]
     ports: [ "8000:8000" ]
-
     read_only: true
-
     depends_on:
       database:
         condition: service_healthy
+    secrets:
+      - source: db
+        target: postgres_db
+        mode: 0440
+      - source: user
+        target: postgres_user
+        mode: 0440
+      - source: passwd
+        target: postgres_passwd
+        mode: 0440
 
+  backend-test:
+    profiles: [ "test" ]
+    hostname: backend
+    container_name: getby_backend_test
+    image: getby_backend_test:1.0
+    build:
+      context: backend
+      dockerfile: backend_test.Dockerfile
+    deploy:
+      resources:
+        limits:
+          memory: 100M
+        reservations:
+          memory: 40M
+      restart_policy:
+        condition: "no"
+    stop_signal: SIGINT
+    user: "getby"
+    restart: "no"
+    cap_drop: [ "ALL" ]
+    environment:
+      - UVICORN_PORT=8000
+      - UVICORN_HOST=0.0.0.0
+      - UVICORN_WORKERS=1
+      - POSTGRES_DB_FILE=${POSTGRES_DB_FILE:?err}
+      - POSTGRES_USER_FILE=${POSTGRES_USER_FILE:?err}
+      - POSTGRES_PASSWORD_FILE=${POSTGRES_PASSWORD_FILE:?err}
+    networks: [ "database" ]
+    ports: [ "8000:8000" ]
+    read_only: true
+    tmpfs: [ "/tmp" ]
+    depends_on:
+      database:
+        condition: service_healthy
     secrets:
       - source: db
         target: postgres_db
@@ -91,7 +128,6 @@ services:
       context: ./database
       dockerfile: postgres.Dockerfile
     stop_signal: SIGINT
-
     deploy:
       resources:
         limits:
@@ -103,17 +139,14 @@ services:
         delay: 5s
         max_attempts: 3
         window: 120s
-
     user: "postgres"
     restart: unless-stopped
     cap_drop: [ "ALL" ]
-
     environment:
       - POSTGRES_DB_FILE=${POSTGRES_DB_FILE:?err}
       - POSTGRES_USER_FILE=${POSTGRES_USER_FILE:?err}
       - POSTGRES_PASSWORD_FILE=${POSTGRES_PASSWORD_FILE:?err}
       - LANG="pt_BR-UTF-8"
-
     secrets:
       - source: db
         target: postgres_db
@@ -124,16 +157,12 @@ services:
       - source: passwd
         target: postgres_passwd
         mode: 0440
-
     networks: [ "database" ]
     expose: [ "5432" ]
-
     volumes:
       - postgres_db:/var/lib/postgresql/data:rw
-
     read_only: true
     tmpfs: [ "/var/run/postgresql" ]
-
     healthcheck:
        test: [ "CMD-SHELL", "pg_isready --dbname=$$(cat ${POSTGRES_DB_FILE:?err}) --username=$$(cat ${POSTGRES_USER_FILE:?err})" ]
        interval: 5s

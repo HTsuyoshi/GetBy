@@ -2,7 +2,7 @@ from pydantic import BaseModel
 
 class Login_info(BaseModel):
     email: str
-    password: str
+    senha: str
 
 class Schema_usuario(BaseModel):
     id_usuario: int
@@ -10,8 +10,8 @@ class Schema_usuario(BaseModel):
     email: str
     senha: str
 
-#    class Config:
-#        orm_mode = True
+    class Config:
+        orm_mode = True
 
 class Schema_sentimento(BaseModel):
     id_sentimento: int

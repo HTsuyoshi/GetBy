@@ -32,7 +32,7 @@ const PaginaLogin = () => {
     axios.defaults.headers.common['Access-Control-Allow-Origin'] = false;
     axios.post(urlPostLogin, {
       email: email,
-      password: senha,
+      senha: senha,
     },{
        withCredentials: true
     }).then(function (response){
