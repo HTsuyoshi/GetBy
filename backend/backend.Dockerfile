@@ -10,7 +10,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN useradd getby
 USER getby
 
-COPY . .
+COPY ./src/ ./
 
 CMD [ "main:getby" ]
 ENTRYPOINT [ "uvicorn" ]
