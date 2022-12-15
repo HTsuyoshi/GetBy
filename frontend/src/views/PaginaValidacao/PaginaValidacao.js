@@ -20,7 +20,7 @@ const PaginaValidacao = () => {
   function handleButtonInvalidoClicked() {
     alert("Recomendação não aprovada")
   }
-  
+
   function handleButtonValidoClicked() {
     alert("Recomendação aprovada")
   }
@@ -33,7 +33,7 @@ const PaginaValidacao = () => {
       <div className={styles.divButtons}>
         <ButtonRoxo texto={"Inválido"}  handleButtonClick={handleButtonInvalidoClicked}/>
         <ButtonAmarelo texto={"Válido"} handleButtonClick={handleButtonValidoClicked}/>
-      </div>    
+      </div>
     </div>
   )
 };
