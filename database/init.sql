@@ -36,9 +36,9 @@ ALTER TABLE sugestao ADD constraint FK_sugestao_id_usuario_usuario foreign key(i
 INSERT INTO usuario (nome, email, senha) VALUES ('caio', 'caio@gg.com', crypt('123', gen_salt('bf', 8)));
 INSERT INTO usuario (nome, email, senha) VALUES ('lucas', 'lucas@gg.com', crypt('12345', gen_salt('bf', 8)));
 
-INSERT INTO sentimento (sentimento) VALUES ('alegria');
-INSERT INTO sentimento (sentimento) VALUES ('tristeza');
-INSERT INTO sentimento (sentimento) VALUES ('medo');
+INSERT INTO sentimento (sentimento) VALUES ('feliz');
+INSERT INTO sentimento (sentimento) VALUES ('triste');
+INSERT INTO sentimento (sentimento) VALUES ('bravo');
 
 INSERT INTO sentimento_usuario (id_usuario, id_sentimento) VALUES (1, 2);
 INSERT INTO sentimento_usuario (id_usuario, id_sentimento) VALUES (2, 1);

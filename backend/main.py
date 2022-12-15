@@ -64,10 +64,10 @@ async def add_usuario(usuario: Schema_usuario, res: Response):
     res.set_cookie(key='AUTH', value=encoded_jwt)
     return { 'AUTH': encoded_jwt }
 
-#@getby.get('/usuario/')
-#async def get_usuario():
-#    usuarios = db.session.query(Usuario).all()
-#    return usuarios
+@getby.get('/test_usuario/')
+async def get_usuario():
+    usuarios = db.session.query(Usuario).all()
+    return usuarios
 
 #@getby.post('/sentimento/', response_model=Schema_sentimento)
 #async def add_sentimento(sentimento: Schema_sentimento):
@@ -76,7 +76,7 @@ async def add_usuario(usuario: Schema_usuario, res: Response):
 #    db.session.commit()
 #    return novo_sentimento
 
-@getby.get('/sentimento/')
+@getby.get('/test_sentimento/')
 async def get_sentimento():
     sentimentos = db.session.query(Sentimento).all()
     return sentimentos
@@ -98,14 +98,27 @@ async def get_sentimento_usuario_usuario(number: int):
     sentimentos_usuarios = db.session.query(Sentimento_usuario).filter(Sentimento_usuario.id_usuario == number).all()
     return sentimentos_usuarios
 
-@getby.post('/sugestao/', response_model=Schema_sugestao)
+@getby.post('/sugestao/')
 async def add_sugestao(sugestao: Schema_sugestao, AUTH = Cookie(None)):
+    print(AUTH)
+    if not AUTH:
+        raise HTTPException(status_code=403, detail='Usuário não logado')
+    data: dict[str, str]
     try:
-        if not jwt.decode(AUTH.encode('UTF-8'), CHAVE_SECRETA, [ALGORITMO]):
-            return Response(403)
+        data = jwt.decode(AUTH.encode('UTF-8'), CHAVE_SECRETA, [ALGORITMO])
     except Exception:
-        return Response(403)
-    nova_sugestao = Sugestao(id_usuario=sugestao.id_usuario, id_sentimento=sugestao.id_sentimento, sugestao=sugestao.sugestao)
+        raise HTTPException(status_code=403, detail='Token inválido')
+
+    usuario = db.session.query(Usuario).filter(Usuario.email == data['email']).first()
+    if not usuario:
+        raise HTTPException(status_code=404, detail='Usuário não existe')
+
+    id_sentimento = db.session.query(Sentimento).filter(Sentimento.sentimento == sugestao.sentimento).first()
+    if not id_sentimento:
+        raise HTTPException(status_code=404, detail='Sentimento não existe')
+
+    id_sentimento = id_sentimento.id_sentimento
+    nova_sugestao = Sugestao(id_usuario=usuario.id_usuario, id_sentimento=id_sentimento, sugestao=sugestao.sugestao)
     db.session.add(nova_sugestao)
     db.session.commit()
     return nova_sugestao

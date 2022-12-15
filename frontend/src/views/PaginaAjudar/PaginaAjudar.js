@@ -6,12 +6,15 @@ import LabelOQTeAjudou from '../../components/LabelOQTeAjudou/LabelOQTeAjudou';
 import SelecaoEmocao from '../../components/SelecaoEmocao/SelecaoEmocao';
 import InputDica from '../../components/InputDica/InputDica';
 import BotaoEnviar from '../../components/BotaoEnviar/BotaoEnviar';
+import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 
 const PaginaAjudar = () => {
   const [emocao, setEmocao] = useState(null);
   const [dica, setDica] = useState(null);
   console.log(emocao)
+
+  const navigate = useNavigate();
 
   function changeDica(dica) {
     setDica(dica);
@@ -28,10 +31,12 @@ const PaginaAjudar = () => {
     //TODO remover prox linha
     console.log("Submit Dica");
     const urlPostDica = 'http://localhost:8000/sugestao/';
+    axios.defaults.headers.common['withCredentials'] = true;
+    axios.defaults.headers.common['Access-Control-Allow-Origin'] = false;
     axios.post(urlPostDica, {
-      id_usuario: 1,
+      id_usuario: -1,
       id_sugestao: 5,
-      id_sentimento: 2,
+      sentimento: emocao.toLowerCase(),
       sugestao: dica,
       onProxyRes: function (proxyRes, req, res) {
        proxyRes.headers['Allow-Cross-Origin'] = '*';
@@ -39,11 +44,13 @@ const PaginaAjudar = () => {
        proxyRes.headers['Access-Control-Allow-Methods'] = '*';
        proxyRes.headers['Access-Control-Allow-Credentials'] = 'true';
        proxyRes.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization';
-    }
+    }},{
+       withCredentials: true
     }).then(function (response){
-      console.log(response);
+      console.log(response.response.status);
+      if(response.response.status === 403) navigate('/login');
     }).catch(function (error) {
-      console.log(error);
+      if(error.response.status === 403) navigate('/login');
     })
   }
 

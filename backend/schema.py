@@ -30,7 +30,7 @@ class Schema_sentimento_usuario(BaseModel):
 class Schema_sugestao(BaseModel):
     id_sugestao: int
     id_usuario: int
-    id_sentimento: int
+    sentimento: str
     sugestao: str
 
     class Config:
