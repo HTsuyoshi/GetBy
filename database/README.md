@@ -47,7 +47,8 @@ erDiagram
     Usuario ||..o{ Sentimento_usuario : "Consulta"
     Sentimento ||..o{ Sentimento_usuario : "Consulta"
     Usuario ||--o{ Sugestao : "Da"
-    Usuario ||..o{ Usuario_sugestao : "Valida"
+    Usuario ||..o{ Usuario_sugestao : "Da feedback"
+    Sugestao ||..o{ Usuario_sugestao : "Recebe feedback"
 ```
 
 #### Usuario
