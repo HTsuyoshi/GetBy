@@ -39,7 +39,7 @@ erDiagram
     }
 
     Usuario_sugestao {
-        int idUsuario PK
+        int idUsuario
         int idSentimento
         int feedback
     }
